@@ -1,9 +1,26 @@
 <script>
 	import {useTracker} from 'meteor/rdb:svelte-meteor-data';
 	import {Studies} from '../api/studies';
+    import {dropdownState} from '../modules/store.js';
 	import Toolbar from './components/Toolbar.svelte';
+	import ToolbarMobile from './components/ToolbarMobile.svelte';
+	import Panel from './components/Panel.svelte';
 
 	$: studies = useTracker(() => Studies.find().fetch());
+
+    let closeAllDropdowns = (event) => {
+		let isNotDropdown = ![
+			event.target.classList ? event.target.classList.contains('js-is-dropdown') : false, 
+			event.target.parentNode.classList ? event.target.parentNode.classList.contains('js-is-dropdown') : false, 
+			event.target.parentNode.parentNode.classList ? event.target.parentNode.parentNode.classList.contains('js-is-dropdown') : false,
+		].includes(true)
+
+		if (isNotDropdown) {
+			Object.keys($dropdownState).forEach(key => {
+				$dropdownState[key] = {...$dropdownState[key], isOpen: false}
+			});
+		}
+	};	
 </script>
 
 <style>
@@ -17,6 +34,9 @@
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
 		overflow: hidden;
+		
+		/* background-image: url("bg.jpg");
+		background-size: cover; */
 	}
 
 	:global(*, *::before, *::after) { 
@@ -25,13 +45,28 @@
 		box-sizing: inherit;
 	}
 
+	:global(html, body) {
+		height: 100%;
+		margin: 0px;
+		padding: 0px;
+	}
+
 	:global(body) {
+		min-height: 100%;
 		margin: 0;
 		padding: 0;
 		-webkit-text-size-adjust: 100%;
 		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 		font-size: 1.6rem;
 	}
+
+	:global(button) {
+		outline: 0;
+        border: none;
+	}
 </style>
 
+<svelte:window on:click={closeAllDropdowns}/> 
 <Toolbar />
+<ToolbarMobile />
+<Panel />

@@ -1,48 +1,36 @@
 <script>
-    import Buttons from '../elements/Buttons.svelte'
+    import {fade} from 'svelte/transition';
+    import Button from '../elements/Button.svelte';
+    import {settings} from '../../modules/store.js';
 
-    let navButtons = [
-        {label: 'Structures', iconName: 'structure'},
-        {label: 'Documents', iconName: 'document'},
-    ]
+    let hasLabels = $settings.toolbarButtons.hasLabels;
+        
 </script>
 
 <style>
     @media only screen and (min-width: 0px) {
-        .toolbar {
-            height: 4.2rem;
-            background-color: #363636;
+        nav {
+            display: none;
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        nav {
+            height: 5.0rem;
+            padding: 0.0rem 0.6rem;
+            background-color: rgb(54, 53, 52);
             display: flex;
             align-items: center;
-            position: absolute;
+            position: fixed;
+            z-index: 10;
             top: 0;
             right: 0;
             left: 0;
         }
 
-        .container-mobile { 
-            height: 100%;
-            display: flex; 
-            width: 100%;
+        nav.no-label {
+            height: 3.8rem;
         }
-
-        .container-one,
-        .container-two,
-        .container-three,
-        .container-four { display: none; }
-    }
-
-    @media only screen and (min-width: 640px) {
-
-    }
-
-    @media only screen and (min-width: 768px) {
-        .toolbar {
-            height: 5.0rem;
-            padding: 0.0rem 0.5rem;
-        }
-
-        .container-mobile { display: none; }
 
         .container-one {
             display: flex;
@@ -75,35 +63,27 @@
     }
 </style>
 
-<nav class="toolbar">
+<nav class="{hasLabels ? '' : 'no-label'}">
     <div class="container-one">
-        <Buttons buttons={ [{label: "Studies", iconName:"book-open"}] }/>
-        <Buttons buttons={ [{label: "Zoom", text:"100%", isDropdown: true}] }/>
-        <Buttons buttons={ [{label: "New Study", iconName:"plus"}] }/>
+        <Button buttons={ [{label: "Studies", iconName:"book", dropdownId: "studies"}] }/>
+        <Button buttons={ [{label: "Zoom", text:"100%", dropdownId: "zoom"}] }/>
     </div>
     <div class="container-two">
-        <Buttons buttons={navButtons}/>
+        <Button buttons={ [
+            {label: 'Structure', iconName: 'structure'},
+            {label: 'Document', iconName: 'document'}
+        ] }/>
     </div>
     <div class="container-three">
-        <Buttons buttons={ [{label: "Outline", iconName:"pin", isDropdown: true}] }/>
-        <Buttons buttons={ [{label: "Text", iconName:"text-join", isDropdown: true}] }/>
-        <Buttons buttons={ [{label: "Literary", iconName:"literary-chiasim", isDropdown: true}] }/>
+        <Button buttons={ [{label: "Outline", iconName:"pin", dropdownId: "outline"}] }/>
+        <Button buttons={ [{label: "Text", iconName:"text-join", dropdownId: "text"}] }/>
+        <Button buttons={ [{label: "Literary", iconName:"literary-chiasim", dropdownId: "literary"}] }/>
         <div class="spacer"></div>
-        <Buttons buttons={ [{label: "Color", iconName:"paintbrush", isDropdown: true}] }/>
-        <Buttons buttons={ [{label: "Note", iconName:"notecard"}] }/>
-        <Buttons buttons={ [{label: "Options", iconName:"checkbox-checked", isDropdown: true}] }/>
+        <Button buttons={ [{label: "Color", iconName:"paintbrush", dropdownId: "color"}] }/>
+        <Button buttons={ [{label: "Note", iconName: "note"}] }/>
+        <Button buttons={ [{label: "Options", iconName:"checkbox-checked"}] }/>
     </div>
     <div class="container-four">
-        <Buttons buttons={ [{label: "Settings", iconName:"gear"}] }/>
-    </div>
-
-    <div class="container-mobile">
-        <Buttons buttons={ [{iconName:"chevron-left"}] }/>
-        <Buttons buttons={ [{iconName: 'document'}] }/>
-        <Buttons buttons={ [{iconName:"pin"}] }/>
-        <Buttons buttons={ [{iconName:"text-join"}] }/>
-        <Buttons buttons={ [{iconName:"literary-chiasim"}] }/>
-        <Buttons buttons={ [{iconName:"paintbrush"}] }/>
-        <Buttons buttons={ [{iconName:"notecard"}] }/>
+        <Button buttons={ [{label: "Settings", iconName:"ellipsis"}] }/>
     </div>
 </nav>
