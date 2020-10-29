@@ -182,8 +182,8 @@ let icons = [
     },
     {
         id: "literary-chiasim",
-        viewBox: "0 0 28 32", 
-        d: "M7.5 23.5V.5h-7v23h7zm10 8V.5h-7v31h7zm10-8V.5h-7v23h7z"
+        viewBox: "0 0 32 28", 
+        d: "M23.5 20.5H.5v7h23v-7zm8-10h-23v7h23v-7zm-8-10H.5v7h23v-7z"
     },
     {
         id: "literary-intensify",
@@ -268,8 +268,8 @@ let icons = [
     },
     {
         id: "structure",
-        viewBox: "0 0 26 32", 
-        d: "M6 24H0V0h6v24zm10 8h-6V0h6v32zm10-8h-6V0h6v24z"
+        viewBox: "0 0 28 32", 
+        d: "M7.5 23.5V.5h-7v23h7zm10 8V.5h-7v31h7zm10-8V.5h-7v23h7z"
     },
     {
         id: "text-join",
