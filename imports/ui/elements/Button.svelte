@@ -41,6 +41,10 @@
             outline: 0;
         }
 
+        button.active {
+            background-color: rgb(212, 211, 210);
+        }
+
         .btn-container.btn-no-label button,
         .btn-group.btn-no-label button {
             height: 2.6rem;
@@ -73,6 +77,10 @@
             max-width: 1.6rem;
             margin: 0.0rem;
             fill: rgb(242, 241, 240);
+        }
+
+        button.active .icon {
+            fill: rgb(44, 43, 42);
         }
 
         .btn-text {
@@ -109,7 +117,7 @@
 <div class="{buttons.length > 1 ? 'btn-group' : 'btn-container'} {hasLabels ? '' : 'btn-no-label'}">
     {#each buttons as button}
         <div class="btn-wrapper">
-            <button class="{button.dropdownId ? 'js-is-dropdown' : ''}" on:click={() => buttonClick(button)}>
+            <button class="{button.dropdownId ? 'js-is-dropdown' : ''} {button.active ? 'active' : ''}" on:click={() => buttonClick(button)}>
                 {#if button.iconName}
                     <svg class="icon" viewBox="{$getIcon(button.iconName).viewBox}">
                         <path d={$getIcon(button.iconName).d}/>

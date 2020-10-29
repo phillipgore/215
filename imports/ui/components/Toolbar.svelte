@@ -18,7 +18,7 @@
         nav {
             height: 5.0rem;
             padding: 0.0rem 0.6rem;
-            background-color: rgb(54, 53, 52);
+            background-color: rgb(44, 43, 42);
             display: flex;
             align-items: center;
             position: fixed;
@@ -70,7 +70,7 @@
     </div>
     <div class="container-two">
         <Button buttons={ [
-            {label: 'Structure', iconName: 'structure'},
+            {label: 'Structure', iconName: 'structure', active: true},
             {label: 'Document', iconName: 'document'}
         ] }/>
     </div>
@@ -84,6 +84,6 @@
         <Button buttons={ [{label: "Options", iconName:"checkbox-checked"}] }/>
     </div>
     <div class="container-four">
-        <Button buttons={ [{label: "Settings", iconName:"ellipsis"}] }/>
+        <Button buttons={ [{label: "Settings", iconName:"ellipsis", panelId: "settings"}] }/>
     </div>
 </nav>

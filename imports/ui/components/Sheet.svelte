@@ -1,28 +1,25 @@
 <script>
     import {fly} from 'svelte/transition';
     import List from '../elements/List.svelte';
-    import {settings, sheetState, getIcon, dropdownLists} from '../../modules/store.js';
+    import {settings, sheetState, getIcon, sheetLists} from '../../modules/store.js';
 
     export let id;
+    export let isSheetFull = false;
 
-    let sheet;
-    let sheetTitle = $dropdownLists[id].listTitle;
+    let sheetTitle = $sheetLists[id].listTitle;
+    let windowHeight;
 
-    $sheetState[id] = {isOpen: false}; 
+    $sheetState[id] = {isOpen: false};
 
-    export const sheetButtonClick = () => {
-        $settings.toolbarMobile.isVisible = !$settings.toolbarMobile.isVisible;
-        openSheet();
-    };
-
-    let openSheet = () => {
-        Object.keys($sheetState).forEach(key => {
-            $sheetState[key].isOpen = false;
-        });
-        $sheetState[id].isOpen = true;
+    let getFlyY = () => {
+        if (isSheetFull) {
+            return windowHeight - 75;
+        }
+        return windowHeight * 0.42;
     };
 
     let closeSheet = () => {
+        $settings.toolbarMobile.isVisible = true;
         $sheetState[id].isOpen = false;
     };
 </script>
@@ -30,7 +27,7 @@
 <style>
     @media only screen and (min-width: 0px) {
         .sheet {
-            height: 23.5rem;
+            height: calc(100vh * 0.42);
             border-top: 0.1rem solid rgba(181, 181, 181, 0.65);
             overflow: hidden;
             backdrop-filter: blur(1.0rem);
@@ -40,6 +37,10 @@
             bottom: 0;
             z-index: 20;
             box-shadow: 0.0rem 0.0rem 0.8rem rgba(0, 0, 0, 0.2);
+        }
+
+        .sheet.sheet-full {
+            height: calc(100vh - 7.5rem);
         }
 
         .sheet:after {
@@ -68,7 +69,7 @@
         .button-close {
             position: absolute;
             top: 0.0rem;
-            right: 0.0rem;
+            right: 0.7rem;
             height: 2.8rem;
             width: 3.6rem;
             display: flex;
@@ -79,6 +80,7 @@
         .icon-close {
             transform: rotate(45deg);
             height: 2.0rem;
+            width: 2.0rem;
             margin-left: 0.2rem;
             fill: #363636;
         }
@@ -95,8 +97,9 @@
     }
 </style>
 
+<svelte:window bind:innerHeight={windowHeight} />
 {#if $sheetState[id].isOpen}
-    <div class="sheet" bind:this={sheet} in:fly="{{ y: 235, duration: 200, opacity: 100 }}" out:fly="{{ y: 235, duration: 300, opacity: 100 }}">
+    <div class="sheet {isSheetFull ? 'sheet-full' : ''}" in:fly="{{ y: getFlyY(), duration: 200, opacity: 100 }}" out:fly="{{ y: getFlyY(), duration: 300, opacity: 100 }}">
         <div class="sheet-title-bar">
             <h1 class="sheet-title">{sheetTitle}</h1>
             <button class="button-close" on:click={() => closeSheet()}>

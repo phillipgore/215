@@ -1,8 +1,8 @@
 <script>
-    import {getIcon, dropdownLists} from '../../modules/store.js';
+    import {getIcon, sheetLists} from '../../modules/store.js';
 
     export let id;
-    let list = $dropdownLists[id];
+    let list = $sheetLists[id];
 </script>
 
 <style>

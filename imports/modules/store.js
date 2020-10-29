@@ -9,7 +9,7 @@ export const settings = writable({
 export const dropdownState = writable({});
 export const sheetState = writable({});
 
-export const dropdownLists = readable({
+export const sheetLists = readable({
     color: {
         listTitle: "Colors",
         listItems: [
@@ -83,6 +83,10 @@ export const dropdownLists = readable({
             {textMain: 'Fit Width'},
             {textMain: 'Fit Page'},
         ],
+    },
+    settings: {
+        listTitle: "Settings",
+        listItems: [],
     },
 });
 

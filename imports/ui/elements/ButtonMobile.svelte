@@ -1,16 +1,16 @@
 <script>
-    import {createEventDispatcher} from 'svelte';
-	import Sheet from '../components/Sheet.svelte';
-    import {settings, getIcon} from '../../modules/store.js';
+    import {settings, getIcon, sheetState} from '../../modules/store.js';
 
     export let buttons = [];
 
-    let hasLabels = $settings.toolbarButtons.hasLabels;
-    let sheet;
-
-    const buttonClick = (button) => {
+    const openSheet = (button) => {
+        console.log(button)
         if (button.sheetId) {
-            sheet.sheetButtonClick();
+            $settings.toolbarMobile.isVisible = false;
+            Object.keys($sheetState).forEach(key => {
+                $sheetState[key].isOpen = false;
+            });
+            $sheetState[button.sheetId].isOpen = true;
         }
     }
 </script>
@@ -25,7 +25,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: rgb(54, 53, 52);
+            background-color: rgb(44, 43, 42);
             flex-basis: 12.5%;
             flex-grow: 1;
             margin: 0.0rem;
@@ -40,12 +40,9 @@
 </style>
 
 {#each buttons as button}
-    <button class="{button.sheetId ? 'js-is-sheet' : ''}" on:click={() => buttonClick(button)}>
+    <button class="{button.sheetId ? 'js-is-sheet' : ''}" on:click={() => openSheet(button)}>
         <svg class="icon" viewBox="{$getIcon(button.iconName).viewBox}">
             <path d={$getIcon(button.iconName).d}/>
         </svg>
     </button>
-    {#if button.sheetId}
-        <Sheet bind:this={sheet} id="{button.sheetId}" />
-    {/if}
 {/each}
