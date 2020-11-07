@@ -1,25 +1,40 @@
 <script>
 	import {useTracker} from 'meteor/rdb:svelte-meteor-data';
 	import {Studies} from '../api/studies';
-    import {dropdownState} from '../modules/store.js';
+    import {dropdownState, toolbarButtonsState, panelLists, sheetLists} from '../modules/store.js';
 	import Toolbar from './components/Toolbar.svelte';
 	import ToolbarMobile from './components/ToolbarMobile.svelte';
 	import Panel from './components/Panel.svelte';
+	import Sheet from './components/Sheet.svelte';
 
 	$: studies = useTracker(() => Studies.find().fetch());
 
-    let closeAllDropdowns = (event) => {
+    let closeAll = (event) => {
+		let isNotButton = ![
+			event.target.classList ? event.target.classList.contains('js-is-button') : false, 
+			event.target.parentNode && event.target.parentNode.classList ? event.target.parentNode.classList.contains('js-is-button') : false, 
+			event.target.parentNode && event.target.parentNode.parentNode && event.target.parentNode.parentNode.classList ? event.target.parentNode.parentNode.classList.contains('js-is-button') : false,
+		].includes(true);
+
+		if (isNotButton) {
+			Object.keys($toolbarButtonsState).forEach(key => {
+				if ($toolbarButtonsState[key].type === 'buttonDropdown') {
+					$toolbarButtonsState[key].isActive = false;
+				}
+			});
+		};
+
 		let isNotDropdown = ![
 			event.target.classList ? event.target.classList.contains('js-is-dropdown') : false, 
-			event.target.parentNode.classList ? event.target.parentNode.classList.contains('js-is-dropdown') : false, 
-			event.target.parentNode.parentNode.classList ? event.target.parentNode.parentNode.classList.contains('js-is-dropdown') : false,
+			event.target.parentNode && event.target.parentNode.classList ? event.target.parentNode.classList.contains('js-is-dropdown') : false, 
+			event.target.parentNode && event.target.parentNode.parentNode && event.target.parentNode.parentNode.classList ? event.target.parentNode.parentNode.classList.contains('js-is-dropdown') : false,
 		].includes(true)
 
 		if (isNotDropdown) {
 			Object.keys($dropdownState).forEach(key => {
 				$dropdownState[key] = {...$dropdownState[key], isOpen: false}
 			});
-		}
+		};
 	};	
 </script>
 
@@ -66,7 +81,15 @@
 	}
 </style>
 
-<svelte:window on:click={closeAllDropdowns}/> 
+<svelte:window on:click={closeAll}/>
+
 <Toolbar />
 <ToolbarMobile />
-<Panel />
+
+{#each $panelLists as panel}
+	<Panel id={panel.id}/>
+{/each}
+
+{#each $sheetLists as sheet}
+	<Sheet id={sheet.id} isSheetFull={sheet.isSheetFull}/>
+{/each}

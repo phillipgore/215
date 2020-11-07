@@ -47,7 +47,7 @@
     let openCloseDropdown = () => {
         Object.keys($dropdownState).forEach(key => {
             let state = id === key && !$dropdownState[key].isOpen? true : false;
-            $dropdownState[key] = {...$dropdownState[key], isOpen: state};
+            $dropdownState[key].isOpen = state;
         });
     };
 </script>
@@ -96,6 +96,7 @@
             overflow-x: auto; 
             padding: 0.6rem 0.0rem;
             box-shadow: 0.0rem 0.0rem 0.8rem rgba(0, 0, 0, 0.15);
+            -webkit-backdrop-filter: blur(1.0rem);
             backdrop-filter: blur(1.0rem);
             border: 0.1rem solid rgba(181, 180, 179, 0.65);
         }
@@ -133,6 +134,7 @@
         
         .dropdown.has-dropdown-arrow .dropdown-pane {
             top: 1.4rem;
+            -webkit-backdrop-filter: none;
             backdrop-filter: none;
             background-color: rgb(242, 241, 240);
             border: 0.1rem solid rgb(181, 180, 179);

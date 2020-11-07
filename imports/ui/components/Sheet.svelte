@@ -6,14 +6,14 @@
     export let id;
     export let isSheetFull = false;
 
-    let sheetTitle = $sheetLists[id].listTitle;
+    let sheetTitle = $sheetLists.find(sheet => sheet.id === id).listTitle;
     let windowHeight;
 
     $sheetState[id] = {isOpen: false};
 
     let getFlyY = () => {
         if (isSheetFull) {
-            return windowHeight - 75;
+            return windowHeight;
         }
         return windowHeight * 0.42;
     };
@@ -30,6 +30,7 @@
             height: calc(100vh * 0.42);
             border-top: 0.1rem solid rgba(181, 181, 181, 0.65);
             overflow: hidden;
+            -webkit-backdrop-filter: blur(1.0rem);
             backdrop-filter: blur(1.0rem);
             position: fixed;
             right: 0;
@@ -40,7 +41,8 @@
         }
 
         .sheet.sheet-full {
-            height: calc(100vh - 7.5rem);
+            height: 100vh;
+            border-top: none;
         }
 
         .sheet:after {

@@ -1,10 +1,34 @@
 <script>
-    import {settings, getIcon, sheetState} from '../../modules/store.js';
+    import {settings, getIcon, toolbarButtons, toolbarButtonsState, sheetState} from '../../modules/store.js';
 
-    export let buttons = [];
+    export let button;
 
-    const openSheet = (button) => {
-        console.log(button)
+    const buttonClick = (button) => {
+        if (button.groupId) {
+            let groupButtons = $toolbarButtons.find(toolbarButton => toolbarButton.id === button.groupId).buttons;
+            let buttonIds = groupButtons.map(groupButton => groupButton.id);
+
+            let getNextButton = (buttonIds, button) => {
+                if (buttonIds.length === (buttonIds.indexOf(button.id) + 1)) {
+                    return 0;
+                }
+                return buttonIds.indexOf(button.id) + 1
+            };
+
+            let nextButtonIndex = getNextButton(buttonIds, button);
+            let nextButtonId = buttonIds[nextButtonIndex];
+            
+            Object.keys($toolbarButtonsState).forEach(key => {
+                if ($toolbarButtonsState[key].type === 'buttonSwap') {
+                    if (key === nextButtonId) {
+                        $toolbarButtonsState[key].isSelected = false;
+                    } else {
+                        $toolbarButtonsState[key].isSelected = true;
+                    }
+                }
+            });
+        }
+
         if (button.sheetId) {
             $settings.toolbarMobile.isVisible = false;
             Object.keys($sheetState).forEach(key => {
@@ -26,7 +50,7 @@
             justify-content: center;
             align-items: center;
             background-color: rgb(44, 43, 42);
-            flex-basis: 12.5%;
+            flex-basis: 9.0%;
             flex-grow: 1;
             margin: 0.0rem;
         }
@@ -39,10 +63,10 @@
     }
 </style>
 
-{#each buttons as button}
-    <button class="{button.sheetId ? 'js-is-sheet' : ''}" on:click={() => openSheet(button)}>
+{#if button.type != 'buttonSwap' || !$toolbarButtonsState[button.id].isSelected}
+    <button class="{button.sheetId ? 'js-is-sheet' : ''}" on:click={() => buttonClick(button)}>
         <svg class="icon" viewBox="{$getIcon(button.iconName).viewBox}">
             <path d={$getIcon(button.iconName).d}/>
         </svg>
     </button>
-{/each}
+{/if}

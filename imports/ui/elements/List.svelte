@@ -1,8 +1,17 @@
 <script>
-    import {getIcon, sheetLists} from '../../modules/store.js';
+    import {getIcon, sheetLists, panelState} from '../../modules/store.js';
 
     export let id;
-    let list = $sheetLists[id];
+    let list = $sheetLists.find(sheet => sheet.id === id);
+
+    const itemClick = (item) => {
+        if (item.panelId) {
+            Object.keys($panelState).forEach(key => {
+                $panelState[key].isOpen = false;
+            });
+            $panelState[item.panelId].isOpen = true;
+        };
+    }
 </script>
 
 <style>
@@ -148,7 +157,7 @@
             <div class="divider"></div>
         {:else}
             <li>
-                <a href={"#"}>
+                <a href={"#"} on:click|preventDefault={() => itemClick(item)}>
                     {#if item.iconLeft}
                         <div class="icon-container">
                             <svg class="icon-left" viewBox="{$getIcon(item.iconLeft).viewBox}">

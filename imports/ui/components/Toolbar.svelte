@@ -1,10 +1,9 @@
 <script>
-    import {fade} from 'svelte/transition';
     import Button from '../elements/Button.svelte';
-    import {settings} from '../../modules/store.js';
+    import ButtonGroup from './ButtonGroup.svelte';
+    import {settings, toolbarButtons} from '../../modules/store.js';
 
     let hasLabels = $settings.toolbarButtons.hasLabels;
-        
 </script>
 
 <style>
@@ -40,50 +39,61 @@
         }
         .container-two {
             display: flex;
-            flex-grow: 1;
-            justify-content: center;
-            align-items: center;
-        }
-        .container-three {
-            display: flex;
             flex-grow: 4;
             justify-content: center;
             align-items: center;
         }
-        .container-four {
+        .container-three {   
             display: flex;
-            flex-grow: 1;
+            flex-grow: 2;
             justify-content: flex-end;
             align-items: center;
         }
 
         .spacer {
-            width: 1.6rem;
+            width: 2.4rem;
         }
     }
 </style>
 
 <nav class="{hasLabels ? '' : 'no-label'}">
     <div class="container-one">
-        <Button buttons={ [{label: "Studies", iconName:"book", dropdownId: "studies"}] }/>
-        <Button buttons={ [{label: "Zoom", text:"100%", dropdownId: "zoom"}] }/>
+        {#each $toolbarButtons as button}
+            {#if button.container === 'one'}
+                {#if button.type === 'spacer'}
+                    <div class="spacer"></div>
+                {:else if button.type === 'buttonSwapping'}
+                    <ButtonGroup buttons={button.buttons}/>
+                {:else}
+                    <Button button={button}/>
+                {/if}
+            {/if}
+        {/each}
     </div>
     <div class="container-two">
-        <Button buttons={ [
-            {label: 'Structure', iconName: 'structure', active: true},
-            {label: 'Document', iconName: 'document'}
-        ] }/>
+        {#each $toolbarButtons as button}
+            {#if button.container === 'two'}
+                {#if button.type === 'spacer'}
+                    <div class="spacer"></div>
+                {:else if button.type === 'buttonSwapping'}
+                    <ButtonGroup buttons={button.buttons}/>
+                {:else}
+                    <Button button={button}/>
+                {/if}
+            {/if}
+        {/each}
     </div>
     <div class="container-three">
-        <Button buttons={ [{label: "Outline", iconName:"pin", dropdownId: "outline"}] }/>
-        <Button buttons={ [{label: "Text", iconName:"text-join", dropdownId: "text"}] }/>
-        <Button buttons={ [{label: "Literary", iconName:"literary-chiasim", dropdownId: "literary"}] }/>
-        <div class="spacer"></div>
-        <Button buttons={ [{label: "Color", iconName:"paintbrush", dropdownId: "color"}] }/>
-        <Button buttons={ [{label: "Note", iconName: "note"}] }/>
-        <Button buttons={ [{label: "Options", iconName:"checkbox-checked"}] }/>
-    </div>
-    <div class="container-four">
-        <Button buttons={ [{label: "Settings", iconName:"ellipsis", panelId: "settings"}] }/>
+        {#each $toolbarButtons as button}
+            {#if button.container === 'three'}
+                {#if button.type === 'spacer'}
+                    <div class="spacer"></div>
+                {:else if button.type === 'buttonSwapping'}
+                    <ButtonGroup buttons={button.buttons}/>
+                {:else}
+                    <Button button={button}/>
+                {/if}
+            {/if}
+        {/each}
     </div>
 </nav>

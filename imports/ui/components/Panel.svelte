@@ -1,7 +1,16 @@
 <script>
-    import {getIcon} from '../../modules/store.js';
+    import {fade} from 'svelte/transition';
+    import {getIcon, panelLists, panelState} from '../../modules/store.js';
 
-    let panelTitle = 'Title'
+    export let id;
+    
+    let panelTitle = $panelLists.find(panel => panel.id === id).panelTitle;
+
+    $panelState[id] = {isOpen: false};
+
+    let closePanel = () => {
+        $panelState[id].isOpen = false;
+    };
 </script>
 
 <style>
@@ -13,11 +22,11 @@
             border-radius: 1.6rem;
             border: 0.1rem solid rgba(181, 181, 181, 0.65);
             overflow: hidden;
+            -webkit-backdrop-filter: blur(1.0rem);
             backdrop-filter: blur(1.0rem);
             position: relative;
             z-index: 20;
             box-shadow: 0.0rem 0.0rem 1.4rem rgba(0, 0, 0, 0.2);
-            display: none;
         }
 
         .panel:after {
@@ -65,20 +74,16 @@
             left: 0.0rem;
         }
     }
-
-    @media only screen and (min-width: 768px) {
-        .panel {
-            display: none;
-        }
-    }
 </style>
 
-<div class="panel">
-    <div class="panel-title-bar">
-        <div class="panel-title">{panelTitle}</div>
-        <svg class="button-close" viewBox={$getIcon('plus-circle').viewBox}>
-            <path d={$getIcon('plus-circle').d}/>
-        </svg>
+{#if $panelState[id].isOpen}
+    <div class="panel" in:fade="{{ delay: 0, duration: 100 }}" out:fade="{{ delay: 0, duration: 200 }}">
+        <div class="panel-title-bar">
+            <div class="panel-title">{panelTitle}</div>
+            <svg class="button-close" viewBox={$getIcon('plus-circle').viewBox} on:click={() => closePanel()}>
+                <path d={$getIcon('plus-circle').d}/>
+            </svg>
+        </div>
+        <div class="panel-content"></div>
     </div>
-    <div class="panel-content"></div>
-</div>
+{/if}
