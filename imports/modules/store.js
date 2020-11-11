@@ -1,5 +1,5 @@
 import {writable, readable} from 'svelte/store';
-import {toolbarButtonStore, toolbarButtonStateStore} from './stores/toolbarbuttonStore.js';
+import {toolbarButtonStore} from './stores/toolbarbuttonStore.js';
 import {sheetListStore} from './stores/sheetListStore.js';
 import {panelListStore} from './stores/panelListStore.js';
 import {iconStore} from './stores/iconStore.js';
