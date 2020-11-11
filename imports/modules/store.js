@@ -13,9 +13,9 @@ export const settings = writable({
 export const dropdownState = writable({});
 export const panelState = writable({});
 export const sheetState = writable({});
+export const toolbarButtonsState = writable({});
 
 export const toolbarButtons = readable(toolbarButtonStore);
-export const toolbarButtonsState = writable(toolbarButtonStateStore);
 export const panelLists = readable(panelListStore);
 export const sheetLists = readable(sheetListStore);
 export const getIcon = readable(

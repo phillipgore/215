@@ -116,17 +116,3 @@ export const toolbarButtonStore = [
         sheetId: 'settings'
     },
 ];
-
-export const toolbarButtonStateStore = {
-    studies: {type: 'buttonDropdown', isActive: false},
-    zoom: {type: 'buttonDropdown', isActive: false},
-    outline: {type: 'buttonDropdown', isActive: false},
-    text: {type: 'buttonDropdown', isActive: false},
-    literary: {type: 'buttonDropdown', isActive: false},
-    color: {type: 'buttonDropdown', isActive: false},
-    note: {type: 'button', isActive: false},
-    options: {type: 'button', isActive: false},
-    structure: {groupId: 'view', type: 'buttonSwap', isSelected: true},
-    document: {groupId: 'view', type: 'buttonSwap', isSelected: false},
-    settings: {type: 'buttonPanel', isActive: false}
-};

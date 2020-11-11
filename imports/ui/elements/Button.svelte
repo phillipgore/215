@@ -7,6 +7,12 @@
     let hasLabels = $settings.toolbarButtons.hasLabels;
     let dropdown;
 
+    if (button.groupId) {
+        $toolbarButtonsState[button.id] = {groupId: button.groupId, type: button.type, isSelected: button.isSelected};
+    } else {
+        $toolbarButtonsState[button.id] = {type: button.type, isActive: button.isActive};
+    }
+
     const buttonClick = (button) => {
         Object.keys($toolbarButtonsState).forEach(key => {
             if ($toolbarButtonsState[key].type === 'buttonDropdown') {
