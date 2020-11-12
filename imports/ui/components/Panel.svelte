@@ -24,7 +24,9 @@
             overflow: hidden;
             -webkit-backdrop-filter: blur(1.0rem);
             backdrop-filter: blur(1.0rem);
-            position: relative;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%); 
             z-index: 20;
             box-shadow: 0.0rem 0.0rem 1.4rem rgba(0, 0, 0, 0.2);
         }
