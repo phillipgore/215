@@ -16,7 +16,9 @@
     let dropdownOffsetLeft;
     let dropdownOffsetRight;
 
-    $dropdownState[id] = {isOpen: false}; 
+    $dropdownState[id] = {
+        isOpen: false,
+    }; 
 
     export const dropdownButtonClick = () => {
         calcualteDropdownPaneHorizontal();

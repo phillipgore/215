@@ -1,7 +1,7 @@
 <script>
 	import {useTracker} from 'meteor/rdb:svelte-meteor-data';
 	import {Studies} from '../api/studies';
-    import {dropdownState, toolbarButtonsState, panelLists, sheetLists} from '../modules/store.js';
+    import {dropdownState, toolbarButtonsState, panelLists, buttonLists} from '../modules/store.js';
 	import Toolbar from './components/Toolbar.svelte';
 	import ToolbarMobile from './components/ToolbarMobile.svelte';
 	import Panel from './components/Panel.svelte';
@@ -90,6 +90,6 @@
 	<Panel id={panel.id}/>
 {/each}
 
-{#each $sheetLists as sheet}
+{#each $buttonLists as sheet}
 	<Sheet id={sheet.id} isSheetFull={sheet.isSheetFull}/>
 {/each}

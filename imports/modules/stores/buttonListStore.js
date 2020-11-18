@@ -1,4 +1,4 @@
-export const sheetListStore = [
+export const buttonListStore = [
     {
         id: 'color',
         isSheetFull: false,

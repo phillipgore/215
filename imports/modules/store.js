@@ -1,6 +1,6 @@
 import {writable, readable} from 'svelte/store';
 import {toolbarButtonStore} from './stores/toolbarbuttonStore.js';
-import {sheetListStore} from './stores/sheetListStore.js';
+import {buttonListStore} from './stores/buttonListStore.js';
 import {panelListStore} from './stores/panelListStore.js';
 import {iconStore} from './stores/iconStore.js';
 
@@ -17,7 +17,7 @@ export const toolbarButtonsState = writable({});
 
 export const toolbarButtons = readable(toolbarButtonStore);
 export const panelLists = readable(panelListStore);
-export const sheetLists = readable(sheetListStore);
+export const buttonLists = readable(buttonListStore);
 export const getIcon = readable(
 	iconName => iconStore.find(icon => icon.id === iconName)
 );

@@ -1,12 +1,12 @@
 <script>
     import {fly} from 'svelte/transition';
     import List from '../elements/List.svelte';
-    import {settings, sheetState, getIcon, sheetLists} from '../../modules/store.js';
+    import {settings, sheetState, getIcon, buttonLists} from '../../modules/store.js';
 
     export let id;
     export let isSheetFull = false;
 
-    let sheetTitle = $sheetLists.find(sheet => sheet.id === id).listTitle;
+    let sheetTitle = $buttonLists.find(sheet => sheet.id === id).listTitle;
     let windowHeight;
 
     $sheetState[id] = {isOpen: false};
