@@ -1,9 +1,10 @@
 <script>
 	import {useTracker} from 'meteor/rdb:svelte-meteor-data';
 	import {Studies} from '../api/studies';
-    import {dropdownState, toolbarButtonsState, panelLists, buttonLists} from '../modules/store.js';
+    import {dropdownState, toolbarButtonsState, dropdowns, panels, sheets, dropdownSheetAndPanelButtons} from '../modules/store.js';
 	import Toolbar from './components/Toolbar.svelte';
 	import ToolbarMobile from './components/ToolbarMobile.svelte';
+	import Dropdown from './components/Dropdown.svelte';
 	import Panel from './components/Panel.svelte';
 	import Sheet from './components/Sheet.svelte';
 
@@ -86,10 +87,14 @@
 <Toolbar />
 <ToolbarMobile />
 
-{#each $panelLists as panel}
-	<Panel id={panel.id}/>
+{#each $dropdowns as dropdown}
+	<Dropdown dropdown={dropdown}/>
 {/each}
 
-{#each $buttonLists as sheet}
-	<Sheet id={sheet.id} isSheetFull={sheet.isSheetFull}/>
+{#each $sheets as sheet}
+	<Sheet sheet={sheet}/>
+{/each}
+
+{#each $panels as panel}
+	<Panel panel={panel}/>
 {/each}

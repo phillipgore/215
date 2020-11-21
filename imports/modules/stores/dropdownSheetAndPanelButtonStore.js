@@ -1,0 +1,80 @@
+export const dropdownSheetAndPanelButtonStore = [
+    {
+        id: 'studies',
+        listItems: [
+            {iconLeft: 'plus-circle', textMain: 'New', textRight: '<span>&#8984;SN</span>', panelId: 'new'},
+            {iconLeft: 'arrow-right-circle', textMain: 'Open', textRight: '<span>&#8984;SO</span>', panelId: 'open'},
+            {divider: true},
+            {iconLeft: 'arrow-down-square', textMain: 'New Inner', textRight: '<span>&#8984;NI</span>', panelId: 'newInner'},
+            {iconLeft: 'arrow-up-square', textMain: 'New Outer', textRight: '<span>&#8984;NO</span>', panelId: 'newOuter'},
+            {divider: true},
+            {iconLeft: 'compare', textMain: 'New Comp', textRight: '<span>&#8984;NC</span>', panelId: 'newComp'},
+        ],
+    },
+    {
+        id: 'zoom',
+        listItems: [
+            {textMain: '25%'},
+            {textMain: '50%'},
+            {textMain: '75%'},
+            {textMain: '100%'},
+            {textMain: '125%'},
+            {textMain: '150%'},
+            {textMain: '200%'},
+            {textMain: '300%'},
+            {textMain: '400%'},
+            {divider: true},
+            {textMain: 'Fit Width'},
+            {textMain: 'Fit Page'},
+        ],
+    },
+    {
+        id: 'outline',
+        listItems: [
+            {iconLeft: 'outline-section', textMain: 'Section', textRight: '<span>&#8984;OS</span>'},
+            {iconLeft: 'outline-column', textMain: 'Column', textRight: '<span>&#8984;OC</span>'},
+            {iconLeft: 'outline-group', textMain: 'Group', textRight: '<span>&#8984;OG</span>'},
+            {divider: true},
+            {iconLeft: 'unpin', textMain: 'Unpin', textRight: '<span>&#8984;OU</span>'},
+            {iconLeft: 'pin', textMain: 'Pin', textRight: '<span>&#8984;OP</span>'},
+        ],
+    },
+    {
+        id: 'text',
+        listItems: [
+            {iconLeft: 'highlight', textMain: 'Highlight', textRight: '<span>&#8984;TH</span>'},
+            {divider: true},
+            {iconLeft: 'text-split', textMain: 'Split', textRight: '<span>&#8984;TS</span>'},
+            {iconLeft: 'text-join', textMain: 'Join', textRight: '<span>&#8984;TJ</span>'},
+            {divider: true},
+            {iconLeft: 'arrow-up', textMain: 'Move Up', textRight: '<span>&#8984;MU</span>'},
+            {iconLeft: 'arrow-down', textMain: 'Move Down', textRight: '<span>&#8984;MD</span>'},
+        ],
+    },
+    {
+        id: 'literary',
+        listItems: [
+            {iconLeft: 'literary-chiasim', textMain: 'Chiasim', textRight: '<span>&#8984;LC</span>'},
+            {iconLeft: 'literary-paralell', textMain: 'Paralellism', textRight: '<span>&#8984;LP</span>'},
+            {iconLeft: 'literary-repeat', textMain: 'Repetition', textRight: '<span>&#8984;LR</span>'},
+            {iconLeft: 'literary-intensify', textMain: 'Intensification', textRight: '<span>&#8984;LI</span>'},
+        ],
+    },
+    {
+        id: 'color',
+        listItems: [
+            {shapeLeft: 'circle', shapeLeftColor: 'red', textMain: 'Red'},
+            {shapeLeft: 'circle', shapeLeftColor: 'orange', textMain: 'Orange'},
+            {shapeLeft: 'circle', shapeLeftColor: 'yellow', textMain: 'Yellow'},
+            {shapeLeft: 'circle', shapeLeftColor: 'green', textMain: 'Green'},
+            {shapeLeft: 'circle', shapeLeftColor: 'aqua', textMain: 'Aqua'},
+            {shapeLeft: 'circle', shapeLeftColor: 'blue', textMain: 'Blue'},
+            {shapeLeft: 'circle', shapeLeftColor: 'purple', textMain: 'Purple'},
+            {shapeLeft: 'circle', shapeLeftColor: 'pink', textMain: 'Pink'},
+        ],
+    },
+    {
+        id: 'settings',
+        listItems: [],
+    },
+]

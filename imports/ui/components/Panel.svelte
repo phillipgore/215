@@ -1,10 +1,10 @@
 <script>
     import {fade} from 'svelte/transition';
-    import {getIcon, panelLists, panelState} from '../../modules/store.js';
+    import {getIcon, panels, panelState} from '../../modules/store.js';
 
-    export let id;
+    export let panel;
     
-    let panelTitle = $panelLists.find(panel => panel.id === id).panelTitle;
+    let id = panel.id;
 
     $panelState[id] = {isOpen: false};
 
@@ -81,7 +81,7 @@
 {#if $panelState[id].isOpen}
     <div class="panel" in:fade="{{ delay: 0, duration: 100 }}" out:fade="{{ delay: 0, duration: 200 }}">
         <div class="panel-title-bar">
-            <div class="panel-title">{panelTitle}</div>
+            <div class="panel-title">{panel.panelTitle}</div>
             <svg class="button-close" viewBox={$getIcon('plus-circle').viewBox} on:click={() => closePanel()}>
                 <path d={$getIcon('plus-circle').d}/>
             </svg>

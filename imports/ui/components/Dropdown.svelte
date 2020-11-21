@@ -2,49 +2,20 @@
     import List from '../elements/List.svelte';
     import {settings, dropdownState} from '../../modules/store.js';
 
-    export let id;
+    export let dropdown;
+    export let id = dropdown.id;
 
     let hasLabels = $settings.toolbarButtons.hasLabels;
     let hasArrows = $settings.dropdowns.hasArrows;
-    let windowHeight;
-    let windowWidth;
-    let dropdown;
-    let dropdownWidth;
     let dropdownPane;
-    let dropdownPaneWidth;
-    let dropdownPaneMaxHeight;
-    let dropdownOffsetLeft;
-    let dropdownOffsetRight;
 
     $dropdownState[id] = {
         isOpen: false,
     }; 
 
     export const dropdownButtonClick = () => {
-        calcualteDropdownPaneHorizontal();
-        calcualteDropdownPaneMaxHeight();
         openCloseDropdown();
     }
-    
-    let calcualteDropdownPaneMaxHeight = () => {
-        dropdownPaneMaxHeightReduction = hasArrows ? 65 : 50;
-        dropdownPaneMaxHeight = `${(windowHeight - dropdownPaneMaxHeightReduction) / 10}rem`;
-    };
-
-    let calcualteDropdownPaneHorizontal = () => {
-        let dropdownLeft = Math.trunc(dropdown.getBoundingClientRect().left);
-
-        if ((dropdownPaneWidth - dropdownWidth) / 2 + 12 > dropdownLeft && hasArrows) {
-            dropdownOffsetLeft = `${0 - ((dropdownLeft - 11) / 10)}rem`;
-            dropdownOffsetRight = 'auto';
-        } else if ((dropdownPaneWidth + dropdownWidth) / 2 + dropdownLeft + 11 > windowWidth) {
-            dropdownOffsetLeft = 'auto'
-            dropdownOffsetRight = `${0 - (windowWidth - dropdownLeft - dropdownWidth - 11) / 10}rem`;
-        } else {
-            dropdownOffsetLeft = 'auto';
-            dropdownOffsetRight = 'auto';
-        }
-    };
 
     let openCloseDropdown = () => {
         Object.keys($dropdownState).forEach(key => {
@@ -59,7 +30,6 @@
         .dropdown {
             display: flex;
             position: relative;
-            top: -200000.0rem;
             z-index: 100000;
         }
 
@@ -89,7 +59,7 @@
 
         .dropdown-pane {
             position: absolute;
-            top: -1.3rem;
+            /* top: -1.3rem; */
             z-index: 2;
             max-width: 30.2rem;
             min-width: 10.8rem;
@@ -153,13 +123,13 @@
     }
 </style>
 
-<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} on:resize={() => calcualteDropdownPaneHorizontal} on:resize={() => calcualteDropdownPaneMaxHeight()}/>
-
-<div class="dropdown {hasArrows ? 'has-dropdown-arrow' : ''}" style={$dropdownState[id].isOpen ? 'top: auto' : ''} bind:this={dropdown} bind:offsetWidth={dropdownWidth}>
-    {#if hasArrows}
-        <div class="dropdown-arrow {hasLabels ? '' : 'no-button-labels'}"></div>
-    {/if}
-    <div class="dropdown-pane {hasLabels ? '' : 'no-button-labels'}" style='max-height: {dropdownPaneMaxHeight}; left: {dropdownOffsetLeft}; right: {dropdownOffsetRight};' bind:offsetWidth={dropdownPaneWidth} bind:this={dropdownPane}>
-        <List id={id}/>
+{#if $dropdownState[id].isOpen}
+    <div class="dropdown {hasArrows ? 'has-dropdown-arrow' : ''}" bind:this={dropdown}>
+        {#if hasArrows}
+            <div class="dropdown-arrow {hasLabels ? '' : 'no-button-labels'}"></div>
+        {/if}
+        <div class="dropdown-pane {hasLabels ? '' : 'no-button-labels'}" bind:this={dropdownPane}>
+            <List id={id}/>
+        </div>
     </div>
-</div>
+{/if}

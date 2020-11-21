@@ -1,4 +1,4 @@
-export const panelListStore = [
+export const panelStore = [
     {
         id: 'new',
         panelTitle: "New Study",

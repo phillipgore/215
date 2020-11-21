@@ -1,18 +1,17 @@
 <script>
     import {fly} from 'svelte/transition';
     import List from '../elements/List.svelte';
-    import {settings, sheetState, getIcon, buttonLists} from '../../modules/store.js';
+    import {settings, sheetState, getIcon, sheets} from '../../modules/store.js';
 
-    export let id;
-    export let isSheetFull = false;
-
-    let sheetTitle = $buttonLists.find(sheet => sheet.id === id).listTitle;
+    export let sheet;
+    
+    let id = sheet.id;
     let windowHeight;
 
     $sheetState[id] = {isOpen: false};
 
     let getFlyY = () => {
-        if (isSheetFull) {
+        if (sheet.isSheetFull) {
             return windowHeight;
         }
         return windowHeight * 0.42;
@@ -101,9 +100,9 @@
 
 <svelte:window bind:innerHeight={windowHeight} />
 {#if $sheetState[id].isOpen}
-    <div class="sheet {isSheetFull ? 'sheet-full' : ''}" in:fly="{{ y: getFlyY(), duration: 200, opacity: 100 }}" out:fly="{{ y: getFlyY(), duration: 300, opacity: 100 }}">
+    <div class="sheet {sheet.isSheetFull ? 'sheet-full' : ''}" in:fly="{{ y: getFlyY(), duration: 200, opacity: 100 }}" out:fly="{{ y: getFlyY(), duration: 300, opacity: 100 }}">
         <div class="sheet-title-bar">
-            <h1 class="sheet-title">{sheetTitle}</h1>
+            <h1 class="sheet-title">{sheet.sheetTitle}</h1>
             <button class="button-close" on:click={() => closeSheet()}>
                 <svg class="icon-close" viewBox="{$getIcon('plus-circle').viewBox}">
                     <path d={$getIcon('plus-circle').d}/>

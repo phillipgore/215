@@ -1,11 +1,9 @@
 <script>
-    import Dropdown from '../components/Dropdown.svelte';
-    import {settings, getIcon, toolbarButtonsState, panelState} from '../../modules/store.js';
+    import {settings, getIcon, toolbarButtonsState, dropdownState, panelState} from '../../modules/store.js';
 
     export let button;
 
     let hasLabels = $settings.toolbarButtons.hasLabels;
-    let dropdown;
 
     if (button.groupId) {
         $toolbarButtonsState[button.id] = {groupId: button.groupId, type: button.type, isSelected: button.isSelected};
@@ -14,12 +12,14 @@
     }
 
     const buttonClick = (button) => {
-        Object.keys($toolbarButtonsState).forEach(key => {
-            if ($toolbarButtonsState[key].type === 'buttonDropdown') {
-                let state = button.id === key && !$toolbarButtonsState[key].isActive? true : false;
-                $toolbarButtonsState[key].isActive = state;
-            }
-        });
+        if (button.dropdownId) {
+            Object.keys($dropdownState).forEach(key => {
+                if (key != button.id) {
+                    $dropdownState[key].isOpen = false;
+                }
+            });
+            $dropdownState[button.id].isOpen = !$dropdownState[button.id].isOpen;
+        };
 
         if (button.type === 'buttonSwap') {
             Object.keys($toolbarButtonsState).forEach(key => {
@@ -31,10 +31,6 @@
                     }
                 }
             });
-        };
-
-        if (button.dropdownId) {
-            dropdown.dropdownButtonClick();
         };
         
         if (button.panelId) {
@@ -179,8 +175,5 @@
             {/if}
         </button>
         <div class="btn-label">{button.label}</div>
-        {#if button.dropdownId}
-            <Dropdown bind:this={dropdown} id={button.dropdownId} />
-        {/if }
     </div>
 </div>
