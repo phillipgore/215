@@ -101,10 +101,10 @@
         li a,
         li a:hover {
             background: transparent;
-            border-radius: 0.0rem;
+            border-radius: 0.3rem;
             font-size: 1.3rem;
-            padding: 0.6rem 1.2rem;
-            margin: 0.0rem;
+            padding: 0.6rem;
+            margin: 0.0rem 0.4rem;
         }
 
         li a:hover {
@@ -123,9 +123,9 @@
 
         .divider {
             height: auto;
-            margin-top: 0.6rem;
+            margin-top: 0.4rem;
             border-top: 0.1rem solid rgb(182, 181, 180);
-            padding-bottom: 0.6rem;
+            padding-bottom: 0.4rem;
         }
 
         .icon-container,

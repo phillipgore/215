@@ -62,7 +62,7 @@
             border-radius: 0.3rem;
             overflow-x: hidden; 
             overflow-x: auto; 
-            padding: 0.6rem 0.0rem;
+            padding: 0.4rem 0.0rem;
             box-shadow: 0.0rem 0.0rem 0.8rem rgba(0, 0, 0, 0.15);
             -webkit-backdrop-filter: blur(1.0rem);
             backdrop-filter: blur(1.0rem);
