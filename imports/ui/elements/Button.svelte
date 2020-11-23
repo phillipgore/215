@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from 'svelte';
     import {settings, getIcon, toolbarState, toolbarButtonsState, dropdownState, panelState} from '../../modules/store.js';
 
     export let button;
@@ -47,12 +48,13 @@
     };
 
     const dropdownPosition = () => {
-        let clickedButton = document.getElementById(id);
-            $toolbarButtonsState[id].intOffsetTop = Math.trunc(clickedButton.getBoundingClientRect().top);
-            $toolbarButtonsState[id].intOffsetRight = Math.trunc(clickedButton.getBoundingClientRect().right);
-            $toolbarButtonsState[id].intOffsetLeft = Math.trunc(clickedButton.getBoundingClientRect().left);
-            $toolbarButtonsState[id].intHeight = Math.trunc(clickedButton.getBoundingClientRect().height);
-            $toolbarButtonsState[id].intWidth = Math.trunc(clickedButton.getBoundingClientRect().width);
+        if (button.dropdownId) {
+            let clickedButtonRect = document.getElementById(id).getBoundingClientRect();
+            $toolbarButtonsState[id].intOffsetTop = Math.ceil(clickedButtonRect.top);
+            $toolbarButtonsState[id].intOffsetRight = Math.ceil(clickedButtonRect.right);
+            $toolbarButtonsState[id].intOffsetLeft = Math.ceil(clickedButtonRect.left);
+            $toolbarButtonsState[id].intHeight = Math.ceil(clickedButtonRect.height);
+            $toolbarButtonsState[id].intWidth = Math.ceil(clickedButtonRect.width);
 
             $dropdownState[id].remLeft = `${($toolbarButtonsState[id].intOffsetLeft) / 10}rem`;
             $dropdownState[id].remWidth = `${($toolbarButtonsState[id].intWidth) / 10}rem`;
@@ -72,6 +74,7 @@
             if ($toolbarButtonsState[id].intOffsetLeft + (($dropdownState[id].intWidth + $toolbarButtonsState[id].intWidth)  / 2) > windowWidth) {
                 $dropdownState[id].paneRemRight = `${0 - ((windowWidth - $toolbarButtonsState[id].intOffsetRight - 10) / 10)}rem`;
             }
+        }
     }
 </script>
 

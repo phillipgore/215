@@ -53,6 +53,7 @@
             width: 7.2rem;
             flex-grow: 4;
             display: none;
+            color: rgb(136, 135, 134)
         }
 
         .divider {
@@ -110,7 +111,6 @@
         li a:hover {
             color: rgb(255, 255, 255);
             background-color: rgb(26, 140, 255);
-            /* background-color: rgb(112, 111, 110); */
         }
 
         li a .main-text {
@@ -119,6 +119,10 @@
 
         li a .text-right {
             display: block;
+        }
+
+        li a:hover .text-right {
+            color: rgb(255, 255, 255);
         }
 
         .divider {

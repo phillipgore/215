@@ -15,6 +15,12 @@
         isOpen: false,
         intWidth: dropdown.intWidth,
         remWidth: `${dropdown.intWidth / 10}rem`,
+        remTop: null,
+        remLeft: null,
+        paneRemWidth: null,
+        paneRemMaxHeight: null,
+        paneRemLeft: null,
+        paneRemRight: null,
     };
 </script>
 
@@ -25,6 +31,7 @@
             justify-content: left;
             position: absolute;
             z-index: 100000;
+            height: 1.5rem;
         }
 
         .dropdown.has-dropdown-arrow {
@@ -108,7 +115,10 @@
 {#if $dropdownState[id].isOpen}
     <div
         class="dropdown {hasArrows ? 'has-dropdown-arrow' : ''}"
-        style="top: {$dropdownState[id].remTop}; left: {$dropdownState[id].remLeft}; width: {$dropdownState[id].remWidth}"
+        style="
+            top: {$dropdownState[id].remTop}; 
+            left: {$dropdownState[id].remLeft}; 
+            width: {$dropdownState[id].remWidth}"
         out:fade="{{ delay: 0, duration: 100 }}"
     >
         {#if hasArrows}
