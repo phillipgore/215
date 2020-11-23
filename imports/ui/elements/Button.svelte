@@ -1,18 +1,48 @@
 <script>
-    import {settings, getIcon, toolbarButtonsState, dropdownState, panelState} from '../../modules/store.js';
+    import {settings, getIcon, toolbarState, toolbarButtonsState, dropdownState, panelState} from '../../modules/store.js';
 
     export let button;
 
+    let id = button.id;
     let hasLabels = $settings.toolbarButtons.hasLabels;
+    let windowWidth;
+    let windowHeight;
 
     if (button.groupId) {
-        $toolbarButtonsState[button.id] = {groupId: button.groupId, type: button.type, isSelected: button.isSelected};
+        $toolbarButtonsState[id] = {groupId: button.groupId, type: button.type, isSelected: button.isSelected};
     } else {
-        $toolbarButtonsState[button.id] = {type: button.type, isActive: button.isActive};
+        $toolbarButtonsState[id] = {type: button.type, isActive: button.isActive};
     }
 
     const buttonClick = (button) => {
         if (button.dropdownId) {
+            let clickedButton = document.getElementById(id);
+            $toolbarButtonsState[id].intOffsetTop = Math.trunc(clickedButton.getBoundingClientRect().top);
+            $toolbarButtonsState[id].intOffsetRight = Math.trunc(clickedButton.getBoundingClientRect().right);
+            $toolbarButtonsState[id].intOffsetLeft = Math.trunc(clickedButton.getBoundingClientRect().left);
+            $toolbarButtonsState[id].intHeight = Math.trunc(clickedButton.getBoundingClientRect().height);
+            $toolbarButtonsState[id].intWidth = Math.trunc(clickedButton.getBoundingClientRect().width);
+            
+            if ($settings.dropdowns.hasArrows) {
+                if (($dropdownState[id].intWidth - $toolbarButtonsState[id].intWidth)  / 2 > $toolbarButtonsState[id].intOffsetLeft) {
+                    $dropdownState[id].remMarginLeft = `${Math.abs(($toolbarButtonsState[id].intOffsetLeft - ($dropdownState[id].intWidth - $toolbarButtonsState[id].intWidth) - 10)) / 10}rem`;
+                }
+
+                $dropdownState[id].remTop = `${($toolbarState.intHeight - 5)  / 10}rem`;
+                $dropdownState[id].remMaxHeight = `${(windowHeight - ($toolbarState.intHeight + 30)) / 10}rem`;
+                $dropdownState[id].remLeft = `${($toolbarButtonsState[id].intOffsetLeft) / 10}rem`;
+            } else {
+                $dropdownState[id].remTop = `${($toolbarButtonsState[id].intOffsetTop + $toolbarButtonsState[id].intHeight + 2)  / 10}rem`;
+                $dropdownState[id].remMaxHeight = `${(windowHeight - ($toolbarButtonsState[id].intHeight + $toolbarButtonsState[id].intOffsetTop) - 23) / 10}rem`;
+                $dropdownState[id].remLeft = `${($toolbarButtonsState[id].intOffsetLeft) / 10}rem`;
+            }
+
+            if ($toolbarButtonsState[id].intOffsetLeft + (($dropdownState[id].intWidth + $toolbarButtonsState[id].intWidth)  / 2) > windowWidth) {
+                $dropdownState[id].remMarginLeft = `${0 - (windowWidth - ($toolbarButtonsState[id].intOffsetLeft - (($dropdownState[id].intWidth - $toolbarButtonsState[id].intWidth)  / 2) - 10)) / 10}rem`;
+            }
+
+            $dropdownState[id].remContainerWidth = `${($toolbarButtonsState[id].intWidth) / 10}rem`;
+            
             Object.keys($dropdownState).forEach(key => {
                 if (key != button.id) {
                     $dropdownState[key].isOpen = false;
@@ -24,7 +54,7 @@
         if (button.type === 'buttonSwap') {
             Object.keys($toolbarButtonsState).forEach(key => {
                 if ($toolbarButtonsState[key].type === 'buttonSwap') {
-                    if (button.id === key) {
+                    if (id === key) {
                         $toolbarButtonsState[key].isSelected = true;
                     } else {
                         $toolbarButtonsState[key].isSelected = false;
@@ -150,16 +180,19 @@
     }
 </style>
 
+<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight}/>
+
 <div class="{button.type === 'buttonSwap' ? 'btn-grouped' : 'btn-container'} {hasLabels ? '' : 'btn-no-label'}">
     <div class="btn-wrapper">
         <button 
+            id="{id}"
             on:click={() => buttonClick(button)}
             class="js-is-button 
                 {button.type === 'buttonSwap' ? 'js-is-grouped' : ''} 
                 {button.dropdownId ? 'js-is-dropdown' : ''} 
                 {button.panelId ? 'js-is-panel' : ''} 
-                {$toolbarButtonsState[button.id].isActive ? 'active' : ''} 
-                {$toolbarButtonsState[button.id].isSelected ? 'selected' : ''}" 
+                {$toolbarButtonsState[id].isActive ? 'active' : ''} 
+                {$toolbarButtonsState[id].isSelected ? 'selected' : ''}" 
         >
             {#if button.iconName}
                 <svg class="icon" viewBox="{$getIcon(button.iconName).viewBox}">

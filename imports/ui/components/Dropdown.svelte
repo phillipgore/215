@@ -1,27 +1,20 @@
 <script>
+    import {fade} from 'svelte/transition';
     import List from '../elements/List.svelte';
-    import {settings, dropdownState} from '../../modules/store.js';
+    import {settings, toolbarState, toolbarButtonsState, dropdownState} from '../../modules/store.js';
 
     export let dropdown;
-    export let id = dropdown.id;
-
+    
+    let id = dropdown.id;
     let hasLabels = $settings.toolbarButtons.hasLabels;
     let hasArrows = $settings.dropdowns.hasArrows;
-    let dropdownPane;
+    let windowHeight;
+    let windowWidth;
 
     $dropdownState[id] = {
         isOpen: false,
-    }; 
-
-    export const dropdownButtonClick = () => {
-        openCloseDropdown();
-    }
-
-    let openCloseDropdown = () => {
-        Object.keys($dropdownState).forEach(key => {
-            let state = id === key && !$dropdownState[key].isOpen? true : false;
-            $dropdownState[key].isOpen = state;
-        });
+        intWidth: dropdown.intWidth,
+        remWidth: `${dropdown.intWidth / 10}rem`,
     };
 </script>
 
@@ -29,13 +22,17 @@
     @media only screen and (min-width: 0px) {
         .dropdown {
             display: flex;
-            position: relative;
+            justify-content: left;
+            position: absolute;
             z-index: 100000;
+        }
+
+        .dropdown.has-dropdown-arrow {
+            justify-content: center;
         }
 
         .dropdown-arrow {
             display: none;
-            justify-content: center;
             position: absolute;
             width: 4.0rem;
             height: 1.5rem;
@@ -59,10 +56,9 @@
 
         .dropdown-pane {
             position: absolute;
-            /* top: -1.3rem; */
             z-index: 2;
-            max-width: 30.2rem;
-            min-width: 10.8rem;
+            max-width: 20.0rem;
+            min-width: 10.0rem;
             border-radius: 0.3rem;
             overflow-x: hidden; 
             overflow-x: auto; 
@@ -83,21 +79,9 @@
             bottom: 0;
             right: 0;
         }
-
-        .dropdown-pane.no-button-labels {
-            top: 0.3rem;
-        }
-
-        .dropdown.has-dropdown-arrow {
-            justify-content: center;
-        }
         
         .dropdown.has-dropdown-arrow .dropdown-arrow {
             display: flex;
-        }
-
-        .dropdown.has-dropdown-arrow .dropdown-arrow.no-button-labels {
-            top: 0.1rem;
         }
         
         .dropdown.has-dropdown-arrow .dropdown-arrow:after {
@@ -113,22 +97,24 @@
             box-shadow: none;
         }
 
-        .dropdown.has-dropdown-arrow .dropdown-pane.no-button-labels {
-            top: 1.5rem;
-        }
-
         .dropdown.has-dropdown-arrow .dropdown-pane:after {
             display: none;
         }
     }
 </style>
 
+<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight}/>
+
 {#if $dropdownState[id].isOpen}
-    <div class="dropdown {hasArrows ? 'has-dropdown-arrow' : ''}" bind:this={dropdown}>
+    <div
+        class="dropdown {hasArrows ? 'has-dropdown-arrow' : ''}"
+        style="top: {$dropdownState[id].remTop}; left: {$dropdownState[id].remLeft}; width: {$dropdownState[id].remContainerWidth}"
+        out:fade="{{ delay: 0, duration: 100 }}"
+    >
         {#if hasArrows}
-            <div class="dropdown-arrow {hasLabels ? '' : 'no-button-labels'}"></div>
+            <div class="dropdown-arrow {hasLabels ? 'has-button-labels' : ''}"></div>
         {/if}
-        <div class="dropdown-pane {hasLabels ? '' : 'no-button-labels'}" bind:this={dropdownPane}>
+        <div class="dropdown-pane {hasLabels ? 'has-button-labels' : ''}" style="width: {$dropdownState[id].remWidth}; max-height: {$dropdownState[id].remMaxHeight}; margin-left: {$dropdownState[id].remMarginLeft}">
             <List id={id}/>
         </div>
     </div>

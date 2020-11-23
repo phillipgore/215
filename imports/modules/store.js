@@ -20,6 +20,7 @@ export const panels = readable(panelStore);
 export const dropdownSheetAndPanelButtons = readable(dropdownSheetAndPanelButtonStore);
 
 // Component State
+export const toolbarState = writable({});
 export const toolbarButtonsState = writable({});
 export const dropdownState = writable({});
 export const panelState = writable({});

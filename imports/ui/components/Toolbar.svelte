@@ -1,7 +1,7 @@
 <script>
     import Button from '../elements/Button.svelte';
     import ButtonGroup from './ButtonGroup.svelte';
-    import {settings, toolbarButtons} from '../../modules/store.js';
+    import {settings, toolbarState, toolbarButtons} from '../../modules/store.js';
 
     let hasLabels = $settings.toolbarButtons.hasLabels;
 </script>
@@ -56,7 +56,7 @@
     }
 </style>
 
-<nav class="{hasLabels ? '' : 'no-label'}">
+<nav class="{hasLabels ? '' : 'no-label'}" bind:offsetHeight={$toolbarState.intHeight}>
     <div class="container-one">
         {#each $toolbarButtons as button}
             {#if button.container === 'one'}
