@@ -108,13 +108,13 @@
 {#if $dropdownState[id].isOpen}
     <div
         class="dropdown {hasArrows ? 'has-dropdown-arrow' : ''}"
-        style="top: {$dropdownState[id].remTop}; left: {$dropdownState[id].remLeft}; width: {$dropdownState[id].remContainerWidth}"
+        style="top: {$dropdownState[id].remTop}; left: {$dropdownState[id].remLeft}; width: {$dropdownState[id].remWidth}"
         out:fade="{{ delay: 0, duration: 100 }}"
     >
         {#if hasArrows}
             <div class="dropdown-arrow {hasLabels ? 'has-button-labels' : ''}"></div>
         {/if}
-        <div class="dropdown-pane {hasLabels ? 'has-button-labels' : ''}" style="width: {$dropdownState[id].remWidth}; max-height: {$dropdownState[id].remMaxHeight}; margin-left: {$dropdownState[id].remMarginLeft}">
+        <div class="dropdown-pane {hasLabels ? 'has-button-labels' : ''}" style="width: {$dropdownState[id].paneRemWidth}; max-height: {$dropdownState[id].paneRemMaxHeight}; left: {$dropdownState[id].paneRemLeft}; right: {$dropdownState[id].paneRemRight}">
             <List id={id}/>
         </div>
     </div>

@@ -9,7 +9,7 @@ import {iconStore} from './stores/iconStore.js';
 export const settings = writable({
     toolbarMobile: {isVisible: true},
 	toolbarButtons: { hasLabels: true },
-	dropdowns: { hasArrows: false }
+	dropdowns: { hasArrows: true }
 });
 
 // Component Setup

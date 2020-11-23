@@ -16,32 +16,7 @@
 
     const buttonClick = (button) => {
         if (button.dropdownId) {
-            let clickedButton = document.getElementById(id);
-            $toolbarButtonsState[id].intOffsetTop = Math.trunc(clickedButton.getBoundingClientRect().top);
-            $toolbarButtonsState[id].intOffsetRight = Math.trunc(clickedButton.getBoundingClientRect().right);
-            $toolbarButtonsState[id].intOffsetLeft = Math.trunc(clickedButton.getBoundingClientRect().left);
-            $toolbarButtonsState[id].intHeight = Math.trunc(clickedButton.getBoundingClientRect().height);
-            $toolbarButtonsState[id].intWidth = Math.trunc(clickedButton.getBoundingClientRect().width);
-            
-            if ($settings.dropdowns.hasArrows) {
-                if (($dropdownState[id].intWidth - $toolbarButtonsState[id].intWidth)  / 2 > $toolbarButtonsState[id].intOffsetLeft) {
-                    $dropdownState[id].remMarginLeft = `${Math.abs(($toolbarButtonsState[id].intOffsetLeft - ($dropdownState[id].intWidth - $toolbarButtonsState[id].intWidth) - 10)) / 10}rem`;
-                }
-
-                $dropdownState[id].remTop = `${($toolbarState.intHeight - 5)  / 10}rem`;
-                $dropdownState[id].remMaxHeight = `${(windowHeight - ($toolbarState.intHeight + 30)) / 10}rem`;
-                $dropdownState[id].remLeft = `${($toolbarButtonsState[id].intOffsetLeft) / 10}rem`;
-            } else {
-                $dropdownState[id].remTop = `${($toolbarButtonsState[id].intOffsetTop + $toolbarButtonsState[id].intHeight + 2)  / 10}rem`;
-                $dropdownState[id].remMaxHeight = `${(windowHeight - ($toolbarButtonsState[id].intHeight + $toolbarButtonsState[id].intOffsetTop) - 23) / 10}rem`;
-                $dropdownState[id].remLeft = `${($toolbarButtonsState[id].intOffsetLeft) / 10}rem`;
-            }
-
-            if ($toolbarButtonsState[id].intOffsetLeft + (($dropdownState[id].intWidth + $toolbarButtonsState[id].intWidth)  / 2) > windowWidth) {
-                $dropdownState[id].remMarginLeft = `${0 - (windowWidth - ($toolbarButtonsState[id].intOffsetLeft - (($dropdownState[id].intWidth - $toolbarButtonsState[id].intWidth)  / 2) - 10)) / 10}rem`;
-            }
-
-            $dropdownState[id].remContainerWidth = `${($toolbarButtonsState[id].intWidth) / 10}rem`;
+            dropdownPosition();
             
             Object.keys($dropdownState).forEach(key => {
                 if (key != button.id) {
@@ -70,6 +45,34 @@
             $panelState[button.panelId].isOpen = true;
         };
     };
+
+    const dropdownPosition = () => {
+        let clickedButton = document.getElementById(id);
+            $toolbarButtonsState[id].intOffsetTop = Math.trunc(clickedButton.getBoundingClientRect().top);
+            $toolbarButtonsState[id].intOffsetRight = Math.trunc(clickedButton.getBoundingClientRect().right);
+            $toolbarButtonsState[id].intOffsetLeft = Math.trunc(clickedButton.getBoundingClientRect().left);
+            $toolbarButtonsState[id].intHeight = Math.trunc(clickedButton.getBoundingClientRect().height);
+            $toolbarButtonsState[id].intWidth = Math.trunc(clickedButton.getBoundingClientRect().width);
+
+            $dropdownState[id].remLeft = `${($toolbarButtonsState[id].intOffsetLeft) / 10}rem`;
+            $dropdownState[id].remWidth = `${($toolbarButtonsState[id].intWidth) / 10}rem`;
+            
+            if ($settings.dropdowns.hasArrows) {
+                $dropdownState[id].remTop = `${($toolbarState.intHeight - 5)  / 10}rem`;
+                $dropdownState[id].paneRemMaxHeight = `${(windowHeight - ($toolbarState.intHeight + 30)) / 10}rem`;
+            } else {
+                $dropdownState[id].remTop = `${($toolbarButtonsState[id].intOffsetTop + $toolbarButtonsState[id].intHeight + 2)  / 10}rem`;
+                $dropdownState[id].paneRemMaxHeight = `${(windowHeight - ($toolbarButtonsState[id].intHeight + $toolbarButtonsState[id].intOffsetTop) - 23) / 10}rem`;
+            }
+
+            if (($dropdownState[id].intWidth - $toolbarButtonsState[id].intWidth)  / 2 > $toolbarButtonsState[id].intOffsetLeft) {
+                $dropdownState[id].paneRemLeft = `${0 - (($toolbarButtonsState[id].intOffsetLeft - 10) / 10)}rem`;
+            }
+
+            if ($toolbarButtonsState[id].intOffsetLeft + (($dropdownState[id].intWidth + $toolbarButtonsState[id].intWidth)  / 2) > windowWidth) {
+                $dropdownState[id].paneRemRight = `${0 - ((windowWidth - $toolbarButtonsState[id].intOffsetRight - 10) / 10)}rem`;
+            }
+    }
 </script>
 
 <style>
@@ -180,7 +183,7 @@
     }
 </style>
 
-<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight}/>
+<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} on:resize={() => dropdownPosition()}/>
 
 <div class="{button.type === 'buttonSwap' ? 'btn-grouped' : 'btn-container'} {hasLabels ? '' : 'btn-no-label'}">
     <div class="btn-wrapper">
