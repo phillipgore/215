@@ -23,8 +23,4 @@ export const dropdownStore = [
         id: 'color',
         intWidth: 100,
     },
-    {
-        id: 'test',
-        intWidth: 190,
-    },
 ];
