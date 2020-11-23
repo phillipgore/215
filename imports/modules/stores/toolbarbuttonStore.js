@@ -115,15 +115,4 @@ export const toolbarButtonStore = [
         panelId: 'settings',
         sheetId: 'settings'
     },
-    {
-        id: 'test',
-        container: 'three',
-        mobile: true,
-        type: 'buttonDropdown',
-        isActive: false,
-        label: 'Test', 
-        iconName:'book', 
-        dropdownId: 'test',
-        sheetId: 'test'
-    },
 ];
