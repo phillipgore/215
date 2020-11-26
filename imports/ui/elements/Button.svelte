@@ -41,9 +41,11 @@
         
         if (button.panelId) {
             Object.keys($panelState).forEach(key => {
-                $panelState[key].isOpen = false;
+                if (key != button.panelId) {
+                    $panelState[key].isOpen = false;
+                }
             });
-            $panelState[button.panelId].isOpen = true;
+            $panelState[button.panelId].isOpen = !$panelState[button.panelId].isOpen;
         };
     };
 

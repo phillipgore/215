@@ -1,8 +1,8 @@
 <script>
-    import {getIcon, dropdownSheetAndPanelButtons, panelState} from '../../modules/store.js';
+    import {getIcon, dropdownAndSheetButtons, panelState} from '../../modules/store.js';
 
     export let id;
-    let list = $dropdownSheetAndPanelButtons.find(sheet => sheet.id === id);
+    let list = $dropdownAndSheetButtons.find(sheet => sheet.id === id);
 
     const itemClick = (item) => {
         if (item.panelId) {

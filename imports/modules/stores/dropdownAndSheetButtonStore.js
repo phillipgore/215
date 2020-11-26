@@ -1,4 +1,4 @@
-export const dropdownSheetAndPanelButtonStore = [
+export const dropdownAndSheetButtonStore = [
     {
         id: 'studies',
         listItems: [

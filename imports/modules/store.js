@@ -3,7 +3,7 @@ import {toolbarButtonStore} from './stores/toolbarbuttonStore.js';
 import {dropdownStore} from './stores/dropdownStore.js';
 import {sheetStore} from './stores/sheetStore.js';
 import {panelStore} from './stores/panelStore.js';
-import {dropdownSheetAndPanelButtonStore} from './stores/dropdownSheetAndPanelButtonStore.js';
+import {dropdownAndSheetButtonStore} from './stores/dropdownAndSheetButtonStore.js';
 import {iconStore} from './stores/iconStore.js';
 
 export const settings = writable({
@@ -17,7 +17,7 @@ export const toolbarButtons = readable(toolbarButtonStore);
 export const dropdowns = readable(dropdownStore);
 export const sheets = readable(sheetStore);
 export const panels = readable(panelStore);
-export const dropdownSheetAndPanelButtons = readable(dropdownSheetAndPanelButtonStore);
+export const dropdownAndSheetButtons = readable(dropdownAndSheetButtonStore);
 
 // Component State
 export const toolbarState = writable({});

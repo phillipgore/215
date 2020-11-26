@@ -1,7 +1,7 @@
 <script>
 	import {useTracker} from 'meteor/rdb:svelte-meteor-data';
 	import {Studies} from '../api/studies';
-    import {dropdownState, toolbarButtonsState, dropdowns, panels, sheets, dropdownSheetAndPanelButtons} from '../modules/store.js';
+    import {dropdownState, toolbarButtonsState, dropdowns, panels, sheets, dropdownAndSheetButtons} from '../modules/store.js';
 	import Toolbar from './components/Toolbar.svelte';
 	import ToolbarMobile from './components/ToolbarMobile.svelte';
 	import Dropdown from './components/Dropdown.svelte';
