@@ -27,7 +27,7 @@
 {#if $settings.toolbarMobile.isVisible}
     <nav in:fly="{{ y: -45, duration: 200, opacity: 100 }}" out:fly="{{ y: -45, duration: 300, opacity: 100 }}">
         {#each $toolbarButtons as button}
-            {#if button.mobile && button.type === 'buttonSwapping'}
+            {#if button.mobile && button.type.includes('buttonSwapping')}
                 {#each button.buttons as button}
                     <ButtonMobile button={button} />
                 {/each}

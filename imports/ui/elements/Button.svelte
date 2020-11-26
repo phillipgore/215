@@ -1,5 +1,4 @@
 <script>
-    import { onMount } from 'svelte';
     import {settings, getIcon, toolbarState, toolbarButtonsState, dropdowns, dropdownState, panelState} from '../../modules/store.js';
 
     export let button;
@@ -16,7 +15,7 @@
     }
 
     const buttonClick = (button) => {
-        if (button.dropdownId) {
+        if (button.type.includes('buttonDropdown')) {
             dropdownPosition();
             
             Object.keys($dropdownState).forEach(key => {
@@ -27,9 +26,9 @@
             $dropdownState[button.id].isOpen = !$dropdownState[button.id].isOpen;
         };
 
-        if (button.type === 'buttonSwap') {
+        if (button.type.includes('buttonSwap')) {
             Object.keys($toolbarButtonsState).forEach(key => {
-                if ($toolbarButtonsState[key].type === 'buttonSwap') {
+                if ($toolbarButtonsState[key].type.includes('buttonSwap')) {
                     if (id === key) {
                         $toolbarButtonsState[key].isSelected = true;
                     } else {
@@ -39,18 +38,18 @@
             });
         };
         
-        if (button.panelId) {
+        if (button.type.includes('buttonPanel')) {
             Object.keys($panelState).forEach(key => {
-                if (key != button.panelId) {
+                if (key != button.id) {
                     $panelState[key].isOpen = false;
                 }
             });
-            $panelState[button.panelId].isOpen = !$panelState[button.panelId].isOpen;
+            $panelState[button.id].isOpen = !$panelState[button.id].isOpen;
         };
     };
 
     const dropdownPosition = () => {
-        if (button.dropdownId) {
+        if (button.type.includes('buttonDropdown')) {
             let clickedButtonRect = document.getElementById(id).getBoundingClientRect();
             $toolbarButtonsState[id].intOffsetTop = Math.ceil(clickedButtonRect.top);
             $toolbarButtonsState[id].intOffsetRight = Math.ceil(clickedButtonRect.right);
@@ -200,15 +199,15 @@
 
 <svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} on:resize={() => dropdownPosition()} on:resize={() => dropdownResetForMobile()}/>
 
-<div class="{button.type === 'buttonSwap' ? 'btn-grouped' : 'btn-container'} {hasLabels ? '' : 'btn-no-label'}">
+<div class="{button.type.includes('buttonSwap') ? 'btn-grouped' : 'btn-container'} {hasLabels ? '' : 'btn-no-label'}">
     <div class="btn-wrapper">
         <button 
             id="{id}"
             on:click={() => buttonClick(button)}
             class="js-is-button 
-                {button.type === 'buttonSwap' ? 'js-is-grouped' : ''} 
-                {button.dropdownId ? 'js-is-dropdown' : ''} 
-                {button.panelId ? 'js-is-panel' : ''} 
+                {button.type.includes('buttonSwap') ? 'js-is-grouped' : ''} 
+                {button.id ? 'js-is-dropdown' : ''} 
+                {button.id ? 'js-is-panel' : ''} 
                 {$toolbarButtonsState[id].isActive ? 'active' : ''} 
                 {$toolbarButtonsState[id].isSelected ? 'selected' : ''}" 
         >
@@ -219,7 +218,7 @@
             {:else if button.text}
                 <span class="btn-text">{button.text}</span>
             {/if}
-            {#if button.dropdownId}
+            {#if button.type.includes('buttonDropdown')}
                 <svg class="caret-down" viewBox="{$getIcon('caret-down').viewBox}">
                     <path d={$getIcon('caret-down').d}/>
                 </svg>

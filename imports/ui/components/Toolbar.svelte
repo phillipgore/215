@@ -60,9 +60,9 @@
     <div class="container-one">
         {#each $toolbarButtons as button}
             {#if button.container === 'one'}
-                {#if button.type === 'spacer'}
+                {#if button.type.includes('spacer')}
                     <div class="spacer"></div>
-                {:else if button.type === 'buttonSwapping'}
+                {:else if button.type.includes('buttonSwapping')}
                     <ButtonGroup buttons={button.buttons}/>
                 {:else}
                     <Button button={button}/>
@@ -73,9 +73,9 @@
     <div class="container-two">
         {#each $toolbarButtons as button}
             {#if button.container === 'two'}
-                {#if button.type === 'spacer'}
+                {#if button.type.includes('spacer')}
                     <div class="spacer"></div>
-                {:else if button.type === 'buttonSwapping'}
+                {:else if button.type.includes('buttonSwapping')}
                     <ButtonGroup buttons={button.buttons}/>
                 {:else}
                     <Button button={button}/>
@@ -86,9 +86,9 @@
     <div class="container-three">
         {#each $toolbarButtons as button}
             {#if button.container === 'three'}
-                {#if button.type === 'spacer'}
+                {#if button.type.includes('spacer')}
                     <div class="spacer"></div>
-                {:else if button.type === 'buttonSwapping'}
+                {:else if button.type.includes('buttonSwapping')}
                     <ButtonGroup buttons={button.buttons}/>
                 {:else}
                     <Button button={button}/>

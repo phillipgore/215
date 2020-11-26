@@ -2,14 +2,14 @@
     import {getIcon, dropdownAndSheetButtons, panelState} from '../../modules/store.js';
 
     export let id;
-    let list = $dropdownAndSheetButtons.find(sheet => sheet.id === id);
+    let button = $dropdownAndSheetButtons.find(sheet => sheet.id === id);
 
-    const itemClick = (item) => {
-        if (item.panelId) {
+    const buttonClick = (button) => {
+        if (button.type.includes('buttonPanel')) {
             Object.keys($panelState).forEach(key => {
                 $panelState[key].isOpen = false;
             });
-            $panelState[item.panelId].isOpen = true;
+            $panelState[button.id].isOpen = true;
         };
     }
 </script>
@@ -30,8 +30,8 @@
             overflow: hidden;
         }
 
-        li a,
-        li a:hover {
+        li button,
+        li button:hover {
             display: flex;
             width: 100%;
             align-items: center;
@@ -44,11 +44,11 @@
             margin: 0.0rem 0.0rem 0.4rem;
         }
 
-        li a .main-text {
+        li button .main-text {
             white-space: nowrap;
         }
 
-        li a .text-right {
+        li button .text-right {
             text-align: right;
             width: 7.2rem;
             flex-grow: 4;
@@ -99,8 +99,8 @@
             margin: 0.0rem;
         }
         
-        li a,
-        li a:hover {
+        li button,
+        li button:hover {
             background: transparent;
             border-radius: 0.3rem;
             font-size: 1.3rem;
@@ -108,20 +108,20 @@
             margin: 0.0rem 0.4rem;
         }
 
-        li a:hover {
+        li button:hover {
             color: rgb(255, 255, 255);
             background-color: rgb(26, 140, 255);
         }
 
-        li a .main-text {
+        li button .main-text {
             white-space: nowrap;
         }
 
-        li a .text-right {
+        li button .text-right {
             display: block;
         }
 
-        li a:hover .text-right {
+        li button:hover .text-right {
             color: rgb(255, 255, 255);
         }
 
@@ -143,7 +143,7 @@
             max-width: 1.2rem;
         }
 
-        li a:hover .icon-left {
+        li button:hover .icon-left {
             fill: rgb(255, 255, 255);
         }
 
@@ -156,29 +156,29 @@
 </style>
 
 <ul>
-    {#each list.listItems as item}
-        {#if item.divider}
+    {#each button.listItems as button}
+        {#if button.divider}
             <div class="divider"></div>
         {:else}
             <li>
-                <a href={"#"} on:click|preventDefault={() => itemClick(item)}>
-                    {#if item.iconLeft}
+                <button href={"#"} on:click|preventDefault={() => buttonClick(button)}>
+                    {#if button.iconLeft}
                         <div class="icon-container">
-                            <svg class="icon-left" viewBox="{$getIcon(item.iconLeft).viewBox}">
-                                <path d={$getIcon(item.iconLeft).d}/>
+                            <svg class="icon-left" viewBox="{$getIcon(button.iconLeft).viewBox}">
+                                <path d={$getIcon(button.iconLeft).d}/>
                             </svg>
                         </div>
                     {/if}
-                    {#if item.shapeLeft}
+                    {#if button.shapeLeft}
                         <div class="shape-container">
-                            <div class="{item.shapeLeft} {item.shapeLeftColor}"></div>
+                            <div class="{button.shapeLeft} {button.shapeLeftColor}"></div>
                         </div>
                     {/if}
-                    <div class="main-text">{item.textMain}</div>
-                    {#if item.textRight}
-                        <div class="text-right">{@html item.textRight}</div>
+                    <div class="main-text">{button.textMain}</div>
+                    {#if button.textRight}
+                        <div class="text-right">{@html button.textRight}</div>
                     {/if}
-                </a>
+                </button>
             </li>
         {/if}
     {/each}

@@ -4,7 +4,7 @@
     export let button;
 
     const buttonClick = (button) => {
-        if (button.groupId) {
+        if (button.type.includes('buttonSwap')) {
             let groupButtons = $toolbarButtons.find(toolbarButton => toolbarButton.id === button.groupId).buttons;
             let buttonIds = groupButtons.map(groupButton => groupButton.id);
 
@@ -19,7 +19,7 @@
             let nextButtonId = buttonIds[nextButtonIndex];
             
             Object.keys($toolbarButtonsState).forEach(key => {
-                if ($toolbarButtonsState[key].type === 'buttonSwap') {
+                if ($toolbarButtonsState[key].type.includes('buttonSwap')) {
                     if (key === nextButtonId) {
                         $toolbarButtonsState[key].isSelected = false;
                     } else {
@@ -29,12 +29,12 @@
             });
         }
 
-        if (button.sheetId) {
+        if (button.type.includes('buttonSheet')) {
             $settings.toolbarMobile.isVisible = false;
             Object.keys($sheetState).forEach(key => {
                 $sheetState[key].isOpen = false;
             });
-            $sheetState[button.sheetId].isOpen = true;
+            $sheetState[button.id].isOpen = true;
         }
     }
 </script>
@@ -63,8 +63,8 @@
     }
 </style>
 
-{#if button.type != 'buttonSwap' || !$toolbarButtonsState[button.id].isSelected}
-    <button class="{button.sheetId ? 'js-is-sheet' : ''}" on:click={() => buttonClick(button)}>
+{#if !button.type.includes('buttonSwap') || !$toolbarButtonsState[button.id].isSelected}
+    <button class="{button.id ? 'js-is-sheet' : ''}" on:click={() => buttonClick(button)}>
         <svg class="icon" viewBox="{$getIcon(button.iconName).viewBox}">
             <path d={$getIcon(button.iconName).d}/>
         </svg>

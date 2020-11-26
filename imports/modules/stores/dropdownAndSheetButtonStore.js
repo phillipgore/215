@@ -2,13 +2,13 @@ export const dropdownAndSheetButtonStore = [
     {
         id: 'studies',
         listItems: [
-            {iconLeft: 'plus-circle', textMain: 'New', textRight: '<span>&#8984;SN</span>', panelId: 'new'},
-            {iconLeft: 'arrow-right-circle', textMain: 'Open', textRight: '<span>&#8984;SO</span>', panelId: 'open'},
+            {id: 'new', iconLeft: 'plus-circle', textMain: 'New', textRight: '<span>&#8984;SN</span>', type: ['buttonPanel']},
+            {id: 'open', iconLeft: 'arrow-right-circle', textMain: 'Open', textRight: '<span>&#8984;SO</span>', type: ['buttonPanel']},
             {divider: true},
-            {iconLeft: 'arrow-down-square', textMain: 'New Inner', textRight: '<span>&#8984;NI</span>', panelId: 'newInner'},
-            {iconLeft: 'arrow-up-square', textMain: 'New Outer', textRight: '<span>&#8984;NO</span>', panelId: 'newOuter'},
+            {id: 'newInner', iconLeft: 'arrow-down-square', textMain: 'New Inner', textRight: '<span>&#8984;NI</span>', type: ['buttonPanel']},
+            {id: 'newOuter', iconLeft: 'arrow-up-square', textMain: 'New Outer', textRight: '<span>&#8984;NO</span>', type: ['buttonPanel']},
             {divider: true},
-            {iconLeft: 'compare', textMain: 'New Comp', textRight: '<span>&#8984;NC</span>', panelId: 'newComp'},
+            {id: 'newCompare', iconLeft: 'compare', textMain: 'New Comp', textRight: '<span>&#8984;NC</span>', type: ['buttonPanel']},
         ],
     },
     {
