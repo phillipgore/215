@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import {settings, getIcon, toolbarState, toolbarButtonsState, dropdownState, panelState} from '../../modules/store.js';
+    import {settings, getIcon, toolbarState, toolbarButtonsState, dropdowns, dropdownState, panelState} from '../../modules/store.js';
 
     export let button;
 
@@ -74,6 +74,16 @@
             if ($toolbarButtonsState[id].intOffsetLeft + (($dropdownState[id].intWidth + $toolbarButtonsState[id].intWidth)  / 2) > windowWidth) {
                 $dropdownState[id].paneRemRight = `${0 - ((windowWidth - $toolbarButtonsState[id].intOffsetRight - 10) / 10)}rem`;
             }
+        }
+    }
+
+    const dropdownResetForMobile = () => {
+        if (windowWidth < 768) {
+            $dropdowns.forEach(dropdown => {
+                $dropdownState[dropdown.id] = {
+                    isOpen: false,
+                };
+            })
         }
     }
 </script>
@@ -186,7 +196,7 @@
     }
 </style>
 
-<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} on:resize={() => dropdownPosition()}/>
+<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} on:resize={() => dropdownPosition()} on:resize={() => dropdownResetForMobile()}/>
 
 <div class="{button.type === 'buttonSwap' ? 'btn-grouped' : 'btn-container'} {hasLabels ? '' : 'btn-no-label'}">
     <div class="btn-wrapper">

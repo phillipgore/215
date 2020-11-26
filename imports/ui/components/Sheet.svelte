@@ -1,26 +1,38 @@
 <script>
     import {fly} from 'svelte/transition';
     import List from '../elements/List.svelte';
-    import {settings, sheetState, getIcon, sheets} from '../../modules/store.js';
+    import {settings, sheets, sheetState, getIcon} from '../../modules/store.js';
 
     export let sheet;
     
     let id = sheet.id;
+    let windowWidth;
     let windowHeight;
 
     $sheetState[id] = {isOpen: false};
 
-    let getFlyY = () => {
+    const getFlyY = () => {
         if (sheet.isSheetFull) {
             return windowHeight;
         }
         return windowHeight * 0.42;
     };
 
-    let closeSheet = () => {
+    const closeSheet = () => {
         $settings.toolbarMobile.isVisible = true;
         $sheetState[id].isOpen = false;
     };
+
+    const sheetResetForWidescreen = () => {
+        if (windowWidth >= 768) {
+            $settings.toolbarMobile.isVisible = true;
+            $sheets.forEach(sheet => {
+                $sheetState[sheet.id] = {
+                    isOpen: false,
+                };
+            })
+        }
+    }
 </script>
 
 <style>
@@ -96,9 +108,15 @@
             left: 0.0rem;
         }
     }
+    @media only screen and (min-width: 768px) {
+        .sheet {
+            display: none;
+        }
+    }
 </style>
 
-<svelte:window bind:innerHeight={windowHeight} />
+<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} on:resize={() => sheetResetForWidescreen()}/>
+
 {#if $sheetState[id].isOpen}
     <div class="sheet {sheet.isSheetFull ? 'sheet-full' : ''}" in:fly="{{ y: getFlyY(), duration: 200, opacity: 100 }}" out:fly="{{ y: getFlyY(), duration: 300, opacity: 100 }}">
         <div class="sheet-title-bar">

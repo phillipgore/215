@@ -15,19 +15,13 @@
         isOpen: false,
         intWidth: dropdown.intWidth,
         remWidth: `${dropdown.intWidth / 10}rem`,
-        remTop: null,
-        remLeft: null,
-        paneRemWidth: null,
-        paneRemMaxHeight: null,
-        paneRemLeft: null,
-        paneRemRight: null,
     };
 </script>
 
 <style>
     @media only screen and (min-width: 0px) {
         .dropdown {
-            display: flex;
+            display: none;
             justify-content: left;
             position: absolute;
             z-index: 100000;
@@ -106,6 +100,11 @@
 
         .dropdown.has-dropdown-arrow .dropdown-pane:after {
             display: none;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        .dropdown {
+            display: flex;
         }
     }
 </style>
