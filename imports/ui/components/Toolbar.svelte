@@ -1,5 +1,5 @@
 <script>
-    import Button from '../elements/Button.svelte';
+    import Button from './Button.svelte';
     import ButtonGroup from './ButtonGroup.svelte';
     import {settings, toolbarState, toolbarButtons} from '../../modules/store.js';
 
@@ -60,9 +60,9 @@
     <div class="container-one">
         {#each $toolbarButtons as button}
             {#if button.container === 'one'}
-                {#if button.type.includes('spacer')}
+                {#if button.isSpacer}
                     <div class="spacer"></div>
-                {:else if button.type.includes('buttonSwapping')}
+                {:else if button.hasSwapping}
                     <ButtonGroup buttons={button.buttons}/>
                 {:else}
                     <Button button={button}/>
@@ -73,9 +73,9 @@
     <div class="container-two">
         {#each $toolbarButtons as button}
             {#if button.container === 'two'}
-                {#if button.type.includes('spacer')}
+                {#if button.isSpacer}
                     <div class="spacer"></div>
-                {:else if button.type.includes('buttonSwapping')}
+                {:else if button.hasSwapping}
                     <ButtonGroup buttons={button.buttons}/>
                 {:else}
                     <Button button={button}/>
@@ -86,9 +86,9 @@
     <div class="container-three">
         {#each $toolbarButtons as button}
             {#if button.container === 'three'}
-                {#if button.type.includes('spacer')}
+                {#if button.isSpacer}
                     <div class="spacer"></div>
-                {:else if button.type.includes('buttonSwapping')}
+                {:else if button.hasSwapping}
                     <ButtonGroup buttons={button.buttons}/>
                 {:else}
                     <Button button={button}/>

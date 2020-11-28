@@ -1,9 +1,9 @@
 <script>
 	import {useTracker} from 'meteor/rdb:svelte-meteor-data';
 	import {Studies} from '../api/studies';
-    import {dropdownState, toolbarButtonsState, dropdowns, panels, sheets, dropdownAndSheetButtons} from '../modules/store.js';
+    import {dropdownState, toolbarButtonState, dropdowns, panels, sheets, buttonLists} from '../modules/store.js';
 	import Toolbar from './components/Toolbar.svelte';
-	import ToolbarMobile from './components/ToolbarMobile.svelte';
+	import ToolbarNarrow from './components/ToolbarNarrow.svelte';
 	import Dropdown from './components/Dropdown.svelte';
 	import Panel from './components/Panel.svelte';
 	import Sheet from './components/Sheet.svelte';
@@ -18,10 +18,8 @@
 		].includes(true);
 
 		if (isNotButton) {
-			Object.keys($toolbarButtonsState).forEach(key => {
-				if ($toolbarButtonsState[key].type === 'buttonDropdown') {
-					$toolbarButtonsState[key].isActive = false;
-				}
+			Object.keys($toolbarButtonState).forEach(key => {
+				$toolbarButtonState[key].isActive = false;
 			});
 		};
 
@@ -85,7 +83,7 @@
 <svelte:window on:click={closeAll}/>
 
 <Toolbar />
-<ToolbarMobile />
+<ToolbarNarrow />
 
 {#each $dropdowns as dropdown}
 	<Dropdown dropdown={dropdown}/>

@@ -1,7 +1,7 @@
 <script>
     import {fade} from 'svelte/transition';
-    import List from '../elements/List.svelte';
-    import {settings, toolbarState, toolbarButtonsState, dropdownState} from '../../modules/store.js';
+    import ButtonList from './ButtonList.svelte';
+    import {settings, toolbarState, toolbarButtonState, dropdownState} from '../../modules/store.js';
 
     export let dropdown;
     
@@ -13,8 +13,8 @@
 
     $dropdownState[id] = {
         isOpen: false,
-        intWidth: dropdown.intWidth,
-        remWidth: `${dropdown.intWidth / 10}rem`,
+        paneIntWidth: dropdown.paneIntWidth,
+        paneRemWidth: `${dropdown.paneIntWidth / 10}rem`,
     };
 </script>
 
@@ -24,8 +24,7 @@
             display: none;
             justify-content: left;
             position: absolute;
-            z-index: 100000;
-            height: 1.5rem;
+            z-index: 15;
         }
 
         .dropdown.has-dropdown-arrow {
@@ -58,8 +57,6 @@
         .dropdown-pane {
             position: absolute;
             z-index: 2;
-            max-width: 20.0rem;
-            min-width: 10.0rem;
             border-radius: 0.3rem;
             overflow-x: hidden; 
             overflow-x: auto; 
@@ -124,7 +121,7 @@
             <div class="dropdown-arrow {hasLabels ? 'has-button-labels' : ''}"></div>
         {/if}
         <div class="dropdown-pane {hasLabels ? 'has-button-labels' : ''}" style="width: {$dropdownState[id].paneRemWidth}; max-height: {$dropdownState[id].paneRemMaxHeight}; left: {$dropdownState[id].paneRemLeft}; right: {$dropdownState[id].paneRemRight}">
-            <List id={id}/>
+            <ButtonList id={id}/>
         </div>
     </div>
 {/if}

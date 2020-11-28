@@ -1,6 +1,6 @@
 <script>
     import {fly} from 'svelte/transition';
-    import List from '../elements/List.svelte';
+    import ButtonList from './ButtonList.svelte';
     import {settings, sheets, sheetState, getIcon} from '../../modules/store.js';
 
     export let sheet;
@@ -19,13 +19,13 @@
     };
 
     const closeSheet = () => {
-        $settings.toolbarMobile.isVisible = true;
+        $settings.toolbarNarrow.isVisible = true;
         $sheetState[id].isOpen = false;
     };
 
     const sheetResetForWidescreen = () => {
         if (windowWidth >= 768) {
-            $settings.toolbarMobile.isVisible = true;
+            $settings.toolbarNarrow.isVisible = true;
             $sheets.forEach(sheet => {
                 $sheetState[sheet.id] = {
                     isOpen: false,
@@ -128,7 +128,7 @@
             </button>
         </div>
         <div class="sheet-content">
-            <List id={id}/>
+            <ButtonList id={id}/>
         </div>
     </div>
 {/if}

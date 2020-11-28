@@ -1,24 +1,39 @@
 <script>
     import {fade} from 'svelte/transition';
+    import ButtonListPanel from './ButtonListPanel.svelte';
     import {getIcon, panels, panelState} from '../../modules/store.js';
 
     export let panel;
     
     let id = panel.id;
+    let windowWidth;
 
     $panelState[id] = {isOpen: false};
 
     let closePanel = () => {
         $panelState[id].isOpen = false;
     };
+
+    const panelResetForNarrow = () => {
+        if (windowWidth < 768) {
+            $panels.forEach(panel => {
+                $panelState[panel.id] = {
+                    isOpen: false,
+                };
+            })
+        }
+    }
 </script>
 
 <style>
     @media only screen and (min-width: 0px) {
         .panel {
+            display: none;
+            grid-template-columns: 15.5rem auto;
+            grid-template-rows: 4.2rem auto 4.2rem;
             margin: 10.0rem auto;
-            width: 64.0rem;
-            min-height: 48.0rem;
+            width: 72.0rem;
+            min-height: 51.4rem;
             border-radius: 1.6rem;
             border: 0.1rem solid rgba(181, 181, 181, 0.65);
             overflow: hidden;
@@ -42,50 +57,68 @@
             right: 0;
         }
 
-        .panel-title-bar {
-            position: relative;
-            border-bottom: 0.1rem solid rgb(182, 181, 180);
+        aside {
+            grid-row: 1 / 4;
+            background-color: transparent;
+            border-right: 0.1rem solid rgba(181, 181, 181, 0.45);
         }
 
-        .panel-title {
+        main {
+            background-color: rgb(255, 255, 255);
+        }
+
+        nav {
             font-size: 1.6rem;
             font-weight: 500;
-            text-align: center;
-            padding: 1.2rem 3.6rem;
+            background-color: rgb(255, 255, 255);
+            border-top: 0.1rem solid rgba(181, 181, 181, 0.45);
+        }
+
+        nav.title-bar {
+            border: none;
+            display: flex;
+            align-items: center;
+            padding: 0.0rem 1.8rem;
+        }
+
+        h1 {
             margin: 0.0rem;
+            padding: 0.0rem;
+            font-size: 2.4rem;
+            font-weight: 700;
         }
 
         .button-close {
             position: absolute;
-            top: 0.0rem;
-            right: 0.0rem;
+            bottom: 0.9rem;
+            right: 0.9rem;
             transform: rotate(45deg);
             height: 2.2rem;
             fill: #363636;
-            float: right;
-            margin: 1.0rem 1.0rem;
         }
-
-        .panel-content {
-            overflow-x: hidden; 
-            overflow-x: auto; 
-            position: absolute;
-            top: 4.2rem;
-            right: 0.0rem;
-            bottom: 0.0rem;
-            left: 0.0rem;
+    }
+    @media only screen and (min-width: 768px) {
+        .panel {
+            display: grid;
         }
     }
 </style>
 
+<svelte:window bind:innerWidth={windowWidth} on:resize={() => panelResetForNarrow()}/>
+
 {#if $panelState[id].isOpen}
     <div class="panel" in:fade="{{ delay: 0, duration: 100 }}" out:fade="{{ delay: 0, duration: 200 }}">
-        <div class="panel-title-bar">
-            <div class="panel-title">{panel.panelTitle}</div>
+        <nav class="title-bar">
+            <h1>{$panelState[id].panelTitle}</h1>
+        </nav>
+        <aside>
+            <ButtonListPanel id={id}/>
+        </aside>
+        <main></main>
+        <nav class="button-bar">
             <svg class="button-close" viewBox={$getIcon('plus-circle').viewBox} on:click={() => closePanel()}>
                 <path d={$getIcon('plus-circle').d}/>
             </svg>
-        </div>
-        <div class="panel-content"></div>
+        </nav>
     </div>
 {/if}

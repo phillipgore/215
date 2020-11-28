@@ -3,11 +3,11 @@ import {toolbarButtonStore} from './stores/toolbarbuttonStore.js';
 import {dropdownStore} from './stores/dropdownStore.js';
 import {sheetStore} from './stores/sheetStore.js';
 import {panelStore} from './stores/panelStore.js';
-import {dropdownAndSheetButtonStore} from './stores/dropdownAndSheetButtonStore.js';
+import {buttonListStore} from './stores/buttonListStore.js';
 import {iconStore} from './stores/iconStore.js';
 
 export const settings = writable({
-    toolbarMobile: {isVisible: true},
+    toolbarNarrow: {isVisible: true},
 	toolbarButtons: { hasLabels: true },
 	dropdowns: { hasArrows: false }
 });
@@ -15,14 +15,15 @@ export const settings = writable({
 // Component Setup
 export const toolbarButtons = readable(toolbarButtonStore);
 export const dropdowns = readable(dropdownStore);
+export const buttonLists = readable(buttonListStore);
 export const sheets = readable(sheetStore);
 export const panels = readable(panelStore);
-export const dropdownAndSheetButtons = readable(dropdownAndSheetButtonStore);
 
 // Component State
 export const toolbarState = writable({});
-export const toolbarButtonsState = writable({});
+export const toolbarButtonState = writable({});
 export const dropdownState = writable({});
+export const buttonListState = writable({});
 export const panelState = writable({});
 export const sheetState = writable({});
 

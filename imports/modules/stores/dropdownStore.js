@@ -1,26 +1,30 @@
 export const dropdownStore = [
     {
         id: 'studies',
-        intWidth: 190,
+        paneIntWidth: 220,
     },
     {
         id: 'zoom',
-        intWidth: 100,
+        paneIntWidth: 100,
     },
     {
         id: 'outline',
-        intWidth: 170,
+        paneIntWidth: 170,
     },
     {
         id: 'text',
-        intWidth: 190,
+        paneIntWidth: 190,
     },
     {
         id: 'literary',
-        intWidth: 200,
+        paneIntWidth: 200,
     },
     {
         id: 'color',
-        intWidth: 100,
+        paneIntWidth: 100,
+    },
+    {
+        id: 'settings',
+        paneIntWidth: 170,
     },
 ];
