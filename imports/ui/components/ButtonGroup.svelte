@@ -1,5 +1,5 @@
 <script>
-    import Button from './Button.svelte';
+    import ButtonTool from './ButtonTool.svelte';
 
     export let buttons;
 </script>
@@ -14,6 +14,6 @@
 
 <div class="btn-group">
     {#each buttons as button}
-        <Button button={button}/>
+        <ButtonTool button={button}/>
     {/each}
 </div>

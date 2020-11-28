@@ -13,6 +13,7 @@
             Object.keys($panelState).forEach(key => {
                 $panelState[key].isOpen = false;
             });
+            $panelState[button.panelId].panelTitle = button.title;
             $panelState[button.panelId].isOpen = true;
         };
 
@@ -20,7 +21,6 @@
             $buttonListState[key].isActive = false;
         });
         $buttonListState[button.id].isActive = true;
-        $panelState[button.panelId].panelTitle = button.title;
     }
 </script>
 

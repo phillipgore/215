@@ -1,5 +1,5 @@
 <script>
-    import Button from './Button.svelte';
+    import ButtonTool from './ButtonTool.svelte';
     import ButtonGroup from './ButtonGroup.svelte';
     import {settings, toolbarState, toolbarButtons} from '../../modules/store.js';
 
@@ -65,7 +65,7 @@
                 {:else if button.hasSwapping}
                     <ButtonGroup buttons={button.buttons}/>
                 {:else}
-                    <Button button={button}/>
+                    <ButtonTool button={button}/>
                 {/if}
             {/if}
         {/each}
@@ -78,7 +78,7 @@
                 {:else if button.hasSwapping}
                     <ButtonGroup buttons={button.buttons}/>
                 {:else}
-                    <Button button={button}/>
+                    <ButtonTool button={button}/>
                 {/if}
             {/if}
         {/each}
@@ -91,7 +91,7 @@
                 {:else if button.hasSwapping}
                     <ButtonGroup buttons={button.buttons}/>
                 {:else}
-                    <Button button={button}/>
+                    <ButtonTool button={button}/>
                 {/if}
             {/if}
         {/each}

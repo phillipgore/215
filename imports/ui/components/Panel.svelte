@@ -78,7 +78,8 @@
             border: none;
             display: flex;
             align-items: center;
-            padding: 0.0rem 1.8rem;
+            justify-content: space-between;
+            padding: 0.0rem 0.9rem 0.0rem 1.8rem;
         }
 
         h1 {
@@ -89,12 +90,9 @@
         }
 
         .button-close {
-            position: absolute;
-            bottom: 0.9rem;
-            right: 0.9rem;
             transform: rotate(45deg);
-            height: 2.2rem;
-            fill: #363636;
+            height: 2.4rem;
+            fill: rgb(112, 111, 110);
         }
     }
     @media only screen and (min-width: 768px) {
@@ -110,15 +108,14 @@
     <div class="panel" in:fade="{{ delay: 0, duration: 100 }}" out:fade="{{ delay: 0, duration: 200 }}">
         <nav class="title-bar">
             <h1>{$panelState[id].panelTitle}</h1>
+            <svg class="button-close" viewBox={$getIcon('plus-circle').viewBox} on:click={() => closePanel()}>
+                <path d={$getIcon('plus-circle').d}/>
+            </svg>
         </nav>
         <aside>
             <ButtonListPanel id={id}/>
         </aside>
         <main></main>
-        <nav class="button-bar">
-            <svg class="button-close" viewBox={$getIcon('plus-circle').viewBox} on:click={() => closePanel()}>
-                <path d={$getIcon('plus-circle').d}/>
-            </svg>
-        </nav>
+        <nav class="button-bar"></nav>
     </div>
 {/if}
