@@ -1,5 +1,6 @@
 <script>
     import {fade} from 'svelte/transition';
+    import Button from './Button.svelte';
     import ButtonListPanel from './ButtonListPanel.svelte';
     import {getIcon, panels, panelState} from '../../modules/store.js';
 
@@ -30,7 +31,7 @@
         .panel {
             display: none;
             grid-template-columns: 15.5rem auto;
-            grid-template-rows: 4.2rem auto 4.2rem;
+            grid-template-rows: 4.2rem auto 5.6rem;
             margin: 10.0rem auto;
             width: 72.0rem;
             min-height: 51.4rem;
@@ -68,6 +69,7 @@
         }
 
         nav {
+            display: flex;
             font-size: 1.6rem;
             font-weight: 500;
             background-color: rgb(255, 255, 255);
@@ -76,10 +78,15 @@
 
         nav.title-bar {
             border: none;
-            display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0.0rem 0.9rem 0.0rem 1.8rem;
+        }
+
+        nav.button-bar {
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0.0rem 1.8rem;
         }
 
         h1 {
@@ -116,6 +123,9 @@
             <ButtonListPanel id={id}/>
         </aside>
         <main></main>
-        <nav class="button-bar"></nav>
+        <nav class="button-bar">
+            <Button text="Cancel" color="default"/><!--
+            --><Button text="Save" color="primary" />
+        </nav>
     </div>
 {/if}
