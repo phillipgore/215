@@ -20,6 +20,12 @@ export const toolbarButtonStore = [
         hasDropdown: true,
     },
     {
+        id: 'stretcherTwo',
+        container: 'two',
+        narrow: false,
+        isStretcher: true,
+    },
+    {
         id: 'outline',
         container: 'two',
         narrow: true,
@@ -95,6 +101,12 @@ export const toolbarButtonStore = [
         isActive: false,
         label: 'Delete', 
         iconName:'delete', 
+    },
+    {
+        id: 'stretcherTwo',
+        container: 'two',
+        narrow: false,
+        isStretcher: true,
     },
     {
         id: 'view',

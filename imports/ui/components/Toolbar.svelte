@@ -31,69 +31,26 @@
             height: 3.8rem;
         }
 
-        .container-one {
-            display: flex;
-            flex-grow: 2;
-            justify-content: flex-start;
-            align-items: center;
-        }
-        .container-two {
-            display: flex;
-            flex-grow: 4;
-            justify-content: center;
-            align-items: center;
-        }
-        .container-three {   
-            display: flex;
-            flex-grow: 2;
-            justify-content: flex-end;
-            align-items: center;
-        }
-
         .spacer {
             width: 2.4rem;
+        }
+
+        .stretcher {
+            flex-grow: 1;
         }
     }
 </style>
 
 <nav class="{hasLabels ? '' : 'no-label'}" bind:offsetHeight={$toolbarState.intHeight}>
-    <div class="container-one">
-        {#each $toolbarButtons as button}
-            {#if button.container === 'one'}
-                {#if button.isSpacer}
-                    <div class="spacer"></div>
-                {:else if button.hasSwapping}
-                    <ButtonGroup buttons={button.buttons}/>
-                {:else}
-                    <ButtonTool button={button}/>
-                {/if}
-            {/if}
-        {/each}
-    </div>
-    <div class="container-two">
-        {#each $toolbarButtons as button}
-            {#if button.container === 'two'}
-                {#if button.isSpacer}
-                    <div class="spacer"></div>
-                {:else if button.hasSwapping}
-                    <ButtonGroup buttons={button.buttons}/>
-                {:else}
-                    <ButtonTool button={button}/>
-                {/if}
-            {/if}
-        {/each}
-    </div>
-    <div class="container-three">
-        {#each $toolbarButtons as button}
-            {#if button.container === 'three'}
-                {#if button.isSpacer}
-                    <div class="spacer"></div>
-                {:else if button.hasSwapping}
-                    <ButtonGroup buttons={button.buttons}/>
-                {:else}
-                    <ButtonTool button={button}/>
-                {/if}
-            {/if}
-        {/each}
-    </div>
+    {#each $toolbarButtons as button}
+        {#if button.isSpacer}
+            <div class="spacer"></div>
+        {:else if button.isStretcher}
+            <div class="stretcher"></div>
+        {:else if button.hasSwapping}
+            <ButtonGroup buttons={button.buttons}/>
+        {:else}
+            <ButtonTool button={button}/>
+        {/if}
+    {/each}
 </nav>
