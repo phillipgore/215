@@ -15,21 +15,21 @@
     }
 
     const buttonClick = (button) => {
+        Object.keys($dropdownState).forEach(key => {
+            if (key != button.id) {
+                $dropdownState[key].isOpen = false;
+            }
+        });
+
+        Object.keys($toolbarButtonState).forEach(key => {
+            if (key != button.id) {
+                $toolbarButtonState[key].isActive = false;
+            }
+        });
+
         if (button.hasDropdown) {
             dropdownPosition();
-            
-            Object.keys($dropdownState).forEach(key => {
-                if (key != button.id) {
-                    $dropdownState[key].isOpen = false;
-                }
-            });
             $dropdownState[button.id].isOpen = !$dropdownState[button.id].isOpen;
-
-            Object.keys($toolbarButtonState).forEach(key => {
-                if (key != button.id) {
-                    $toolbarButtonState[key].isActive = false;
-                }
-            });
             $toolbarButtonState[button.id].isActive = !$toolbarButtonState[button.id].isActive;
         };
 

@@ -1,10 +1,10 @@
 import {writable, readable} from 'svelte/store';
-import {toolbarButtonStore} from './stores/toolbarbuttonStore.js';
-import {dropdownStore} from './stores/dropdownStore.js';
-import {sheetStore} from './stores/sheetStore.js';
-import {panelStore} from './stores/panelStore.js';
-import {buttonListStore} from './stores/buttonListStore.js';
-import {iconStore} from './stores/iconStore.js';
+import {toolbarbuttonsInitial} from './initialStores/toolbarbuttonsInitial.js';
+import {dropdownsInitial} from './initialStores/dropdownsInitial.js';
+import {sheetsInitial} from './initialStores/sheetsInitial.js';
+import {panelsInitial} from './initialStores/panelsInitial.js';
+import {buttonListsInitial} from './initialStores/buttonListsInitial.js';
+import {iconStore} from './iconStore.js';
 
 export const settings = writable({
     toolbarNarrow: {isVisible: true},
@@ -13,11 +13,11 @@ export const settings = writable({
 });
 
 // Component Setup
-export const toolbarButtons = readable(toolbarButtonStore);
-export const dropdowns = readable(dropdownStore);
-export const buttonLists = readable(buttonListStore);
-export const sheets = readable(sheetStore);
-export const panels = readable(panelStore);
+export const toolbarButtons = readable(toolbarbuttonsInitial);
+export const dropdowns = readable(dropdownsInitial);
+export const buttonLists = readable(buttonListsInitial);
+export const sheets = readable(sheetsInitial);
+export const panels = readable(panelsInitial);
 
 // Component State
 export const toolbarState = writable({});

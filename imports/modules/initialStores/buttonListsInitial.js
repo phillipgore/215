@@ -1,4 +1,4 @@
-export const buttonListStore = [
+export const buttonListsInitial = [
     {
         id: 'studies',
         listTitle: 'Studies',

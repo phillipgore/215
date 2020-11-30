@@ -1,4 +1,4 @@
-export const dropdownStore = [
+export const dropdownsInitial = [
     {
         id: 'studies',
         paneIntWidth: 220,

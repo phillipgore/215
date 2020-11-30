@@ -1,4 +1,4 @@
-export const toolbarButtonStore = [
+export const toolbarbuttonsInitial = [
     {
         id: 'studies',
         container: 'one',

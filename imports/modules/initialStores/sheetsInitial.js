@@ -1,4 +1,4 @@
-export const sheetStore = [
+export const sheetsInitial = [
     {
         id: 'studies',
         isSheetFull: true,
