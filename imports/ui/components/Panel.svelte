@@ -124,7 +124,7 @@
         </aside>
         <main></main>
         <nav class="button-bar">
-            <Button text="Cancel" color="default"/><!--
+        <Button text="Cancel" color="default" on:buttonClick={() => closePanel()}/><!--
             --><Button text="Save" color="primary" />
         </nav>
     </div>

@@ -33,6 +33,7 @@ export const buttonListsInitial = [
                 textMain: 'New Inner', 
                 textRight: '<span>&#8984;NI</span>', 
                 hasPanel: true,
+                isDisabled: true,
             },
             {
                 id: 'newOuter', 
@@ -42,6 +43,7 @@ export const buttonListsInitial = [
                 textMain: 'New Outer', 
                 textRight: '<span>&#8984;NO</span>', 
                 hasPanel: true,
+                isDisabled: true,
             },
             {
                 divider: true, 
@@ -61,19 +63,20 @@ export const buttonListsInitial = [
     {
         id: 'zoom',
         listTitle: 'Zoom',
+        isChecked: true,
         buttons: [
-            {textMain: '25%'},
-            {textMain: '50%'},
-            {textMain: '75%'},
-            {textMain: '100%'},
-            {textMain: '125%'},
-            {textMain: '150%'},
-            {textMain: '200%'},
-            {textMain: '300%'},
-            {textMain: '400%'},
+            {id: '25', textMain: '25%'},
+            {id: '50', textMain: '50%'},
+            {id: '75', textMain: '75%'},
+            {id: '100', textMain: '100%', isActive: true},
+            {id: '125', textMain: '125%'},
+            {id: '150', textMain: '150%'},
+            {id: '200', textMain: '200%'},
+            {id: '300', textMain: '300%'},
+            {id: '400', textMain: '400%'},
             {divider: true},
-            {textMain: 'Fit Width'},
-            {textMain: 'Fit Page'},
+            {id: 'fitWidth', textMain: 'Fit Width'},
+            {id: 'fitPage', textMain: 'Fit Page'},
         ],
     },
     {
@@ -81,32 +84,42 @@ export const buttonListsInitial = [
         listTitle: 'Outline',
         buttons: [
             {
+                id: 'section',
                 iconLeft: 'outline-section', 
                 textMain: 'Section', 
-                textRight: '<span>&#8984;OS</span>'
+                textRight: '<span>&#8984;OS</span>',
+                isDisabled: true,
             },
             {
+                id: 'column',
                 iconLeft: 'outline-column', 
                 textMain: 'Column', 
-                textRight: '<span>&#8984;OC</span>'
+                textRight: '<span>&#8984;OC</span>',
+                isDisabled: true,
             },
             {
+                id: 'group',
                 iconLeft: 'outline-group', 
                 textMain: 'Group', 
-                textRight: '<span>&#8984;OG</span>'
+                textRight: '<span>&#8984;OG</span>',
+                isDisabled: true,
             },
             {
                 divider: true
             },
             {
+                id: 'unpin',
                 iconLeft: 'unpin', 
                 textMain: 'Unpin', 
-                textRight: '<span>&#8984;OU</span>'
+                textRight: '<span>&#8984;OU</span>',
+                isDisabled: true,
             },
             {
+                id: 'pin',
                 iconLeft: 'pin', 
                 textMain: 'Pin', 
-                textRight: '<span>&#8984;OP</span>'
+                textRight: '<span>&#8984;OP</span>',
+                isDisabled: true,
             },
         ],
     },
@@ -115,34 +128,44 @@ export const buttonListsInitial = [
         listTitle: 'Text',
         buttons: [
             {
+                id: 'highlight',
                 iconLeft: 'highlight', 
                 textMain: 'Highlight', 
-                textRight: '<span>&#8984;TH</span>'
+                textRight: '<span>&#8984;TH</span>',
+                isDisabled: true,
             },
             {
                 divider: true
             },
             {
+                id: 'split',
                 iconLeft: 'text-split', 
                 textMain: 'Split', 
-                textRight: '<span>&#8984;TS</span>'
+                textRight: '<span>&#8984;TS</span>',
+                isDisabled: true,
             },
             {
+               id: 'join',
                 iconLeft: 'text-join', 
                 textMain: 'Join', 
-                textRight: '<span>&#8984;TJ</span>'
+                textRight: '<span>&#8984;TJ</span>',
+                isDisabled: true,
             },
             {
                 divider: true},
             {
+                id: 'moveUp',
                 iconLeft: 'arrow-up', 
                 textMain: 'Move Up', 
-                textRight: '<span>&#8984;MU</span>'
+                textRight: '<span>&#8984;MU</span>',
+                isDisabled: true,
             },
             {
+                id: 'moveDown',
                 iconLeft: 'arrow-down', 
                 textMain: 'Move Down', 
-                textRight: '<span>&#8984;MD</span>'
+                textRight: '<span>&#8984;MD</span>',
+                isDisabled: true,
             },  
         ],
     },
@@ -151,24 +174,32 @@ export const buttonListsInitial = [
         listTitle: 'Literary',
         buttons: [
             {
+                id: 'chiasim',
                 iconLeft: 'literary-chiasim', 
                 textMain: 'Chiasim', 
-                textRight: '<span>&#8984;LC</span>'
+                textRight: '<span>&#8984;LC</span>',
+                isDisabled: true,
             },
             {
+                id: 'paralellism',
                 iconLeft: 'literary-paralell', 
                 textMain: 'Paralellism', 
-                textRight: '<span>&#8984;LP</span>'
+                textRight: '<span>&#8984;LP</span>',
+                isDisabled: true,
             },
             {
+                id: 'repetition',
                 iconLeft: 'literary-repeat', 
                 textMain: 'Repetition', 
-                textRight: '<span>&#8984;LR</span>'
+                textRight: '<span>&#8984;LR</span>',
+                isDisabled: true,
             },
             {
+                id: 'intensification',
                 iconLeft: 'literary-intensify', 
                 textMain: 'Intensification', 
-                textRight: '<span>&#8984;LI</span>'
+                textRight: '<span>&#8984;LI</span>',
+                isDisabled: true,
             },
         ],
     },
@@ -177,44 +208,60 @@ export const buttonListsInitial = [
         listTitle: 'Color',
         buttons: [
             {
+                id: 'red',
                 shapeLeft: 'circle', 
                 shapeLeftColor: 'red', 
-                textMain: 'Red'
+                textMain: 'Red',
+                isDisabled: true,
             },
             {
+                id: 'orange',
                 shapeLeft: 'circle', 
                 shapeLeftColor: 'orange', 
-                textMain: 'Orange'
+                textMain: 'Orange',
+                isDisabled: true,
             },
             {
+                id: 'yellow',
                 shapeLeft: 'circle', 
                 shapeLeftColor: 'yellow', 
-                textMain: 'Yellow'
+                textMain: 'Yellow',
+                isDisabled: true,
             },
             {
+                id: 'green',
                 shapeLeft: 'circle', 
                 shapeLeftColor: 'green', 
-                textMain: 'Green'
+                textMain: 'Green',
+                isDisabled: true,
             },
             {
+                id: 'aqua',
                 shapeLeft: 'circle', 
                 shapeLeftColor: 'aqua', 
-                textMain: 'Aqua'
+                textMain: 'Aqua',
+                isDisabled: true,
             },
             {
+                id: 'blue',
                 shapeLeft: 'circle', 
                 shapeLeftColor: 'blue', 
-                textMain: 'Blue'
+                textMain: 'Blue',
+                isDisabled: true,
             },
             {
+                id: 'purple',
                 shapeLeft: 'circle', 
                 shapeLeftColor: 'purple', 
-                textMain: 'Purple'
+                textMain: 'Purple',
+                isDisabled: true,
             },
             {
+                id: 'pink',
                 shapeLeft: 'circle', 
                 shapeLeftColor: 'pink', 
-                textMain: 'Pink'
+                textMain: 'Pink',
+                isDisabled: true,
             },
         ],
     },

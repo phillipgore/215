@@ -2,12 +2,17 @@
     import {getIcon, buttonLists, panelState, buttonListState} from '../../modules/store.js';
 
     export let id;
-    let buttonList = $buttonLists.find(button => button.id === id).buttons;
+    let buttonList = $buttonLists.find(buttonList => buttonList.id === id);
+    let buttons = buttonList.buttons;
 
-    buttonList.forEach(button => {
-        $buttonListState[button.id] = {id: button.id, isActive: false}
+    buttons.forEach(button => {
+        $buttonListState[button.id] = {
+            id: button.id, 
+            isActive: button.isActive, 
+            isDisabled: button.isDisabled,
+        }
     })
-
+    
     const buttonClick = (button) => {
         if (button.hasPanel) {
             Object.keys($panelState).forEach(key => {
@@ -41,7 +46,7 @@
         }
 
         li button,
-        li button:hover {
+        li button:hover:enabled {
             display: flex;
             width: 100%;
             align-items: center;
@@ -56,6 +61,10 @@
 
         li button .main-text {
             white-space: nowrap;
+        }
+
+        li button:disabled .main-text {
+            color: rgb(136, 135, 134)
         }
 
         li button .text-right {
@@ -80,27 +89,40 @@
             margin-right: 0.6rem;
         }
 
-        .icon-left {
+        li button .icon-left {
             height: 1.7rem;
             fill: rgb(84, 83, 82);
             max-width: 1.5rem;
         }
 
-        .circle {
+        li button:disabled .icon-left {
+            fill: rgb(136, 135, 134)
+        }
+
+        li button .circle {
             height: 1.6rem;
             width: 1.6rem;
             border-radius: 0.8rem;
             border: solid 0.1rem;
         }
 
-        .red { border-color: #CC8F8F; background-color: #FFD9D9; }
-        .orange { border-color: #CCAD8F; background-color: #FFECD9; }
-        .yellow { border-color: #CCCC8F; background-color: #FFFFD9; }
-        .green { border-color: #8FCC8F; background-color: #D9FFD9; }
-        .aqua { border-color: #8FCCCC; background-color: #D9FFFF; }
-        .blue { border-color: #8FADCC; background-color: #D9ECFF; }
-        .purple { border-color: #AD8FCC; background-color: #ECD9FF; }
-        .pink { border-color: #CC8FCC; background-color: #FFD9FF; }
+        li button:enabled .circle.red { border-color: #CC8F8F; background-color: #FFD9D9; }
+        li button:enabled .circle.orange { border-color: #CCAD8F; background-color: #FFECD9; }
+        li button:enabled .circle.yellow { border-color: #CCCC8F; background-color: #FFFFD9; }
+        li button:enabled .circle.green { border-color: #8FCC8F; background-color: #D9FFD9; }
+        li button:enabled .circle.aqua { border-color: #8FCCCC; background-color: #D9FFFF; }
+        li button:enabled .circle.blue { border-color: #8FADCC; background-color: #D9ECFF; }
+        li button:enabled .circle.purple { border-color: #AD8FCC; background-color: #ECD9FF; }
+        li button:enabled .circle.pink { border-color: #CC8FCC; background-color: #FFD9FF; }
+
+        li button:disabled .circle.red,
+        li button:disabled .circle.orange,
+        li button:disabled .circle.yellow,
+        li button:disabled .circle.green,
+        li button:disabled .circle.aqua,
+        li button:disabled .circle.blue,
+        li button:disabled .circle.purple,
+        li button:disabled .circle.pink { border-color: rgb(196, 195, 194); background-color: rgb(196, 195, 194); }
     }
 
     @media only screen and (min-width: 768px) {
@@ -109,7 +131,7 @@
         }
         
         li button,
-        li button:hover {
+        li button:hover:enabled {
             background: transparent;
             border-radius: 0.3rem;
             font-size: 1.3rem;
@@ -117,7 +139,7 @@
             margin: 0.0rem 0.4rem;
         }
 
-        li button:hover {
+        li button:hover:enabled {
             color: rgb(255, 255, 255);
             background-color: rgb(26, 140, 255);
         }
@@ -130,7 +152,7 @@
             display: block;
         }
 
-        li button:hover .text-right {
+        li button:hover:enabled .text-right {
             color: rgb(255, 255, 255);
         }
 
@@ -141,22 +163,22 @@
             padding-bottom: 0.4rem;
         }
 
-        .icon-container,
-        .shape-container  {
+        li button .icon-container,
+        li button .shape-container  {
             height: 1.4rem;
             width: 1.4rem;
         }
 
-        .icon-left {
+        li button .icon-left {
             max-height: 1.2rem;
             max-width: 1.2rem;
         }
 
-        li button:hover .icon-left {
+        li button:hover:enabled .icon-left {
             fill: rgb(255, 255, 255);
         }
 
-        .circle {
+        li button .circle {
             height: 1.4rem;
             width: 1.4rem;
             border-radius: 0.7rem;
@@ -165,13 +187,21 @@
 </style>
 
 <ul>
-    {#each buttonList as button}
+    {#each buttons as button}
         {#if button.divider}
             <div class="divider"></div>
         {:else}
             <li>
-                <button href={"#"} on:click|preventDefault={() => buttonClick(button)}>
-                    {#if button.iconLeft}
+                <button href={"#"} on:click|preventDefault={() => buttonClick(button)} disabled="{$buttonListState[button.id].isDisabled}"> 
+                    {#if buttonList.isChecked}
+                        <div class="icon-container">
+                            {#if $buttonListState[button.id].isActive}
+                                <svg class="icon-left" viewBox="{$getIcon('check').viewBox}">
+                                    <path d={$getIcon('check').d}/>
+                                </svg>
+                            {/if}
+                        </div>
+                    {:else if button.iconLeft}
                         <div class="icon-container">
                             <svg class="icon-left" viewBox="{$getIcon(button.iconLeft).viewBox}">
                                 <path d={$getIcon(button.iconLeft).d}/>

@@ -3,6 +3,7 @@
 
     export let id;
     let buttonList = $buttonLists.find(button => button.id === id);
+    let buttons = buttonList.buttons;
 
     const buttonClick = (button) => {
         Object.keys($buttonListState).forEach(key => {
@@ -66,6 +67,10 @@
             white-space: nowrap;
         }
 
+        li button:disabled .main-text {
+            color: rgb(136, 135, 134);
+        }
+
         .divider {
             height: auto;
             margin-top: 0.6rem;
@@ -73,7 +78,7 @@
             padding-bottom: 0.6rem;
         }
 
-        .icon-container {
+        li button .icon-container {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -82,11 +87,15 @@
             margin-right: 0.6rem;
         }
 
-        .icon-left {
+        li button .icon-left {
             height: 1.7rem;
             fill: rgb(84, 83, 82);
             max-height: 1.2rem;
             max-width: 1.2rem;
+        }
+
+        li button:disabled .icon-left {
+            fill: rgb(136, 135, 134)
         }
     }
 </style>
@@ -95,13 +104,13 @@
     <h1>{buttonList.listTitle}</h1>
 </div>
 <ul>
-    {#each buttonList.buttons as button}
+    {#each buttons as button}
         {#if button.hasPanel}
             {#if button.divider}
                 <div class="divider"></div>
             {:else}
                 <li>
-                    <button class={$buttonListState[button.id].isActive ? 'active' : ''} on:click|preventDefault={() => buttonClick(button)}>
+                    <button class={$buttonListState[button.id].isActive ? 'active' : ''} on:click|preventDefault={() => buttonClick(button)} disabled="{$buttonListState[button.id].isDisabled}">
                         {#if button.iconLeft}
                             <div class="icon-container">
                                 <svg class="icon-left" viewBox="{$getIcon(button.iconLeft).viewBox}">
