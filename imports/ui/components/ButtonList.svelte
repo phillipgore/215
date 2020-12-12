@@ -59,15 +59,15 @@
             margin: 0.0rem 0.0rem 0.4rem;
         }
 
-        li button .main-text {
+        li button .label {
             white-space: nowrap;
         }
 
-        li button:disabled .main-text {
+        li button:disabled .label {
             color: rgb(136, 135, 134)
         }
 
-        li button .text-right {
+        li button .label-right {
             text-align: right;
             width: 7.2rem;
             flex-grow: 4;
@@ -106,23 +106,18 @@
             border: solid 0.1rem;
         }
 
-        li button:enabled .circle.red { border-color: #CC8F8F; background-color: #FFD9D9; }
-        li button:enabled .circle.orange { border-color: #CCAD8F; background-color: #FFECD9; }
-        li button:enabled .circle.yellow { border-color: #CCCC8F; background-color: #FFFFD9; }
-        li button:enabled .circle.green { border-color: #8FCC8F; background-color: #D9FFD9; }
-        li button:enabled .circle.aqua { border-color: #8FCCCC; background-color: #D9FFFF; }
-        li button:enabled .circle.blue { border-color: #8FADCC; background-color: #D9ECFF; }
-        li button:enabled .circle.purple { border-color: #AD8FCC; background-color: #ECD9FF; }
-        li button:enabled .circle.pink { border-color: #CC8FCC; background-color: #FFD9FF; }
+        li button .circle.red { border-color: #CC8F8F; background-color: #FFD9D9; }
+        li button .circle.orange { border-color: #CCAD8F; background-color: #FFECD9; }
+        li button .circle.yellow { border-color: #CCCC8F; background-color: #FFFFD9; }
+        li button .circle.green { border-color: #8FCC8F; background-color: #D9FFD9; }
+        li button .circle.aqua { border-color: #8FCCCC; background-color: #D9FFFF; }
+        li button .circle.blue { border-color: #8FADCC; background-color: #D9ECFF; }
+        li button .circle.purple { border-color: #AD8FCC; background-color: #ECD9FF; }
+        li button .circle.pink { border-color: #CC8FCC; background-color: #FFD9FF; }
 
-        li button:disabled .circle.red,
-        li button:disabled .circle.orange,
-        li button:disabled .circle.yellow,
-        li button:disabled .circle.green,
-        li button:disabled .circle.aqua,
-        li button:disabled .circle.blue,
-        li button:disabled .circle.purple,
-        li button:disabled .circle.pink { border-color: rgb(196, 195, 194); background-color: rgb(196, 195, 194); }
+        li button:disabled .circle { 
+            opacity: 0.5;
+        }
     }
 
     @media only screen and (min-width: 768px) {
@@ -144,15 +139,15 @@
             background-color: rgb(26, 140, 255);
         }
 
-        li button .main-text {
+        li button .label {
             white-space: nowrap;
         }
 
-        li button .text-right {
+        li button .label-right {
             display: block;
         }
 
-        li button:hover:enabled .text-right {
+        li button:hover:enabled .label-right {
             color: rgb(255, 255, 255);
         }
 
@@ -213,9 +208,9 @@
                             <div class="{button.shapeLeft} {button.shapeLeftColor}"></div>
                         </div>
                     {/if}
-                    <div class="main-text">{button.textMain}</div>
-                    {#if button.textRight}
-                        <div class="text-right">{@html button.textRight}</div>
+                    <div class="label">{button.label}</div>
+                    {#if button.labelRight}
+                        <div class="label-right">{@html button.labelRight}</div>
                     {/if}
                 </button>
             </li>

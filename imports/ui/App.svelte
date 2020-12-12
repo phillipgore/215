@@ -1,7 +1,7 @@
 <script>
 	import {useTracker} from 'meteor/rdb:svelte-meteor-data';
 	import {Studies} from '../api/studies';
-    import {dropdownState, toolbarButtonState, dropdowns, panels, sheets, buttonLists} from '../modules/store.js';
+    import {interfaceState, dropdownState, toolbarButtonState} from '../modules/store.js';
 	import Toolbar from './components/Toolbar.svelte';
 	import ToolbarNarrow from './components/ToolbarNarrow.svelte';
 	import Dropdown from './components/Dropdown.svelte';
@@ -9,6 +9,10 @@
 	import Sheet from './components/Sheet.svelte';
 
 	$: studies = useTracker(() => Studies.find().fetch());
+
+	let dropdowns = $interfaceState.filter(element => element.hasDropdown);
+	let sheets = $interfaceState.filter(element => element.hasDropdown);
+	let panels = $interfaceState.filter(element => element.hasDropdown);
 
     let closeAll = (event) => {
 		let isNotButton = ![
@@ -83,16 +87,17 @@
 <svelte:window on:click={closeAll}/>
 
 <Toolbar />
+
 <ToolbarNarrow />
 
-{#each $dropdowns as dropdown}
+{#each dropdowns as dropdown}
 	<Dropdown dropdown={dropdown}/>
 {/each}
 
-{#each $sheets as sheet}
+{#each sheets as sheet}
 	<Sheet sheet={sheet}/>
 {/each}
 
-{#each $panels as panel}
+{#each panels as panel}
 	<Panel panel={panel}/>
 {/each}

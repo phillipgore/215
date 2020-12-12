@@ -63,11 +63,11 @@
             background-color: rgba(181, 181, 181, 0.55);
         }
 
-        li button .main-text {
+        li button .label {
             white-space: nowrap;
         }
 
-        li button:disabled .main-text {
+        li button:disabled .label {
             color: rgb(136, 135, 134);
         }
 
@@ -118,7 +118,7 @@
                                 </svg>
                             </div>
                         {/if}
-                        <div class="main-text">{button.textMain}</div>
+                        <div class="label">{button.label}</div>
                     </button>
                 </li>
             {/if}

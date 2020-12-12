@@ -1,7 +1,9 @@
 <script>
     import {fly} from 'svelte/transition';
     import ButtonNarrow from './ButtonNarrow.svelte';
-    import {settings, toolbarButtons} from '../../modules/store.js';        
+    import {settings, interfaceState} from '../../modules/store.js'; 
+    
+    let narrowButtons = $interfaceState.filter(element => element.onNarrowScreens);
 </script>
 
 <style>
@@ -26,12 +28,12 @@
 
 {#if $settings.toolbarNarrow.isVisible}
     <nav in:fly="{{ y: -45, duration: 200, opacity: 100 }}" out:fly="{{ y: -45, duration: 300, opacity: 100 }}">
-        {#each $toolbarButtons as button}
-            {#if button.narrow && button.hasSwapping}
-                {#each button.buttons as button}
+        {#each narrowButtons as button}
+            {#if button.onNarrowScreens && button.hasSwapping}
+                {#each button.buttonList as button}
                     <ButtonNarrow button={button} />
                 {/each}
-            {:else if button.narrow}
+            {:else if button.onNarrowScreens}
                 <ButtonNarrow button={button} />
             {/if}
         {/each}

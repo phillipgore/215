@@ -1,11 +1,12 @@
 <script>
-    import {settings, getIcon, toolbarButtons, toolbarButtonState, sheetState} from '../../modules/store.js';
+    import {settings, interfaceState, getIcon, toolbarButtons, toolbarButtonState, sheetState} from '../../modules/store.js';
 
     export let button;
 
     const buttonClick = (button) => {
         if (button.hasSwap) {
-            let groupButtons = $toolbarButtons.find(toolbarButton => toolbarButton.id === button.groupId).buttons;
+            console.log('hello')
+            let groupButtons = $interfaceState.find(toolbarButton => toolbarButton.id === button.groupId).buttonList;
             let buttonIds = groupButtons.map(groupButton => groupButton.id);
 
             let getNextButton = (buttonIds, button) => {
@@ -18,12 +19,12 @@
             let nextButtonIndex = getNextButton(buttonIds, button);
             let nextButtonId = buttonIds[nextButtonIndex];
             
-            Object.keys($toolbarButtonState).forEach(key => {
-                if ($toolbarButtonState[key].hasSwap) {
+            Object.keys($interfaceState).forEach(key => {
+                if ($interfaceState[key].hasSwap) {
                     if (key === nextButtonId) {
-                        $toolbarButtonState[key].isSelected = false;
+                        $interfaceState[key].isSelected = false;
                     } else {
-                        $toolbarButtonState[key].isSelected = true;
+                        $interfaceState[key].isSelected = true;
                     }
                 }
             });
@@ -63,7 +64,7 @@
     }
 </style>
 
-{#if !button.hasSwap || !$toolbarButtonState[button.id].isSelected}
+{#if !button.hasSwap || !button.isSelected}
     <button class="{button.id ? 'js-is-sheet' : ''}" on:click={() => buttonClick(button)}>
         <svg class="icon" viewBox="{$getIcon(button.iconName).viewBox}">
             <path d={$getIcon(button.iconName).d}/>

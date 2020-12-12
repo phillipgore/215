@@ -43,13 +43,13 @@
 
 <nav class="{hasLabels ? '' : 'no-label'}" bind:offsetHeight={$toolbarState.intHeight}>
     {#each $toolbarButtons as button}
-        {#if button.isSpacer}
+        {#if button.type === 'spacer'}
             <div class="spacer"></div>
-        {:else if button.isStretcher}
+        {:else if button.type == 'stretcher'}
             <div class="stretcher"></div>
-        {:else if button.hasSwapping}
-            <ButtonGroup buttons={button.buttons}/>
-        {:else}
+        {:else if button.type === 'buttonSwap'}
+            <ButtonGroup buttons={button.buttonList}/>
+        {:else if button.type === 'button'}
             <ButtonTool button={button}/>
         {/if}
     {/each}
