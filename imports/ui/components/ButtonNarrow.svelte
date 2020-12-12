@@ -5,7 +5,6 @@
 
     const buttonClick = (button) => {
         if (button.hasSwap) {
-            console.log('hello')
             let groupButtons = $interfaceState.find(toolbarButton => toolbarButton.id === button.groupId).buttonList;
             let buttonIds = groupButtons.map(groupButton => groupButton.id);
 
@@ -64,7 +63,7 @@
     }
 </style>
 
-{#if !button.hasSwap || !button.isSelected}
+{#if !button.hasSwap || !$toolbarButtonState[button.id].isSelected}
     <button class="{button.id ? 'js-is-sheet' : ''}" on:click={() => buttonClick(button)}>
         <svg class="icon" viewBox="{$getIcon(button.iconName).viewBox}">
             <path d={$getIcon(button.iconName).d}/>
